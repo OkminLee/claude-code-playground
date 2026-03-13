@@ -413,6 +413,17 @@ a:hover {
 .terminal-line.error { color: var(--error); }
 .terminal-line.info { color: var(--info); }
 
+.terminal-line strong {
+  color: var(--text-terminal);
+  font-weight: 700;
+}
+
+.terminal-line code {
+  background: rgba(255,255,255,0.1);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
 .terminal-prompt {
   display: flex;
   align-items: center;

@@ -8,6 +8,19 @@ function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function renderLineText(str) {
+  let safe = escapeHtml(str);
+  safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
+  return safe;
+}
+
 export class Terminal {
   constructor(container) {
     this.container = container;
@@ -124,7 +137,7 @@ export class Terminal {
       if (line.text === '') {
         el.innerHTML = '&nbsp;';
       } else {
-        el.textContent = line.text;
+        el.innerHTML = renderLineText(line.text);
       }
 
       this.body.appendChild(el);
