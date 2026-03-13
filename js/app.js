@@ -6,6 +6,12 @@ let scenarioLoader = null;
 let currentTerminal = null;
 let currentGuidePanel = null;
 
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 async function getLoader() {
   if (!scenarioLoader) {
     const mod = await import('./scenario-loader.js');
@@ -73,12 +79,13 @@ async function renderHome() {
   const loader = await getLoader();
   const completedCount = progress.getCompletedCount();
   const totalCount = 30;
+  const pct = Math.round(completedCount / totalCount * 100);
 
   app.innerHTML = `
     <div class="home-view">
-      <div class="progress-bar-container">
+      <div class="progress-bar-container" role="progressbar" aria-valuenow="${completedCount}" aria-valuemax="${totalCount}" aria-label="학습 진행률: ${completedCount}/${totalCount} 완료">
         <span class="progress-text">${completedCount} / ${totalCount} 완료</span>
-        <div class="progress-bar" style="width: ${(completedCount / totalCount * 100)}%"></div>
+        <div class="progress-bar" style="width: ${pct}%"></div>
       </div>
       <div id="home-content">
         <p class="loading-text">시나리오를 불러오는 중...</p>
@@ -94,12 +101,14 @@ async function renderHome() {
 
     renderScenarioGrid(scenarios);
   } catch (e) {
-    document.getElementById('home-content').innerHTML = `
+    const content = document.getElementById('home-content');
+    content.innerHTML = `
       <div class="error-view">
         <p>시나리오를 불러올 수 없습니다.</p>
-        <button class="btn btn-primary" onclick="location.reload()">다시 시도</button>
+        <button class="btn btn-primary" id="retry-btn">다시 시도</button>
       </div>
     `;
+    document.getElementById('retry-btn')?.addEventListener('click', () => location.reload());
   }
 }
 
@@ -120,7 +129,7 @@ function renderScenarioGrid(scenarios) {
   let html = '';
   for (const [ch, group] of Object.entries(chapters)) {
     html += `<div class="chapter-group">`;
-    html += `<div class="chapter-title">Ch${ch}. ${group.title}</div>`;
+    html += `<div class="chapter-title">Ch${ch}. ${escapeHtml(group.title)}</div>`;
     html += `<div class="home-grid">`;
     for (const s of group.items) {
       const isCompleted = completedIds.includes(s.id);
@@ -130,9 +139,9 @@ function renderScenarioGrid(scenarios) {
       const statusCss = isCompleted ? 'done' : isCurrent ? 'current' : 'pending';
 
       html += `
-        <div class="scenario-card ${statusClass}" onclick="location.hash='#/scenario/${s.id}'" tabindex="0" role="button" aria-label="${s.title}">
+        <div class="scenario-card ${statusClass}" data-scenario-id="${s.id}" tabindex="0" role="button" aria-label="${escapeHtml(s.title)}">
           <div class="card-difficulty">${getDifficultyStars(s.difficulty)}</div>
-          <h3 class="card-title">${s.title}</h3>
+          <h3 class="card-title">${escapeHtml(s.title)}</h3>
           <div class="card-meta">
             <span class="card-audience">${getAudienceLabel(s.audience)}</span>
             <span>${s.estimatedMinutes}분</span>
@@ -146,11 +155,16 @@ function renderScenarioGrid(scenarios) {
 
   content.innerHTML = html;
 
-  // Enter key support for cards
-  content.querySelectorAll('.scenario-card').forEach(card => {
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
-    });
+  content.addEventListener('click', e => {
+    const card = e.target.closest('.scenario-card');
+    if (card) location.hash = `#/scenario/${card.dataset.scenarioId}`;
+  });
+  content.addEventListener('keydown', e => {
+    const card = e.target.closest('.scenario-card');
+    if (card && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      location.hash = `#/scenario/${card.dataset.scenarioId}`;
+    }
   });
 }
 
@@ -196,7 +210,6 @@ async function renderScenario(id) {
 
   document.querySelector('.scenario-title').textContent = scenario.title;
 
-  // Setup mobile guide toggle
   const guideToggle = document.getElementById('guide-toggle');
   const guideContainer = document.getElementById('guide-container');
   if (guideToggle) {
@@ -206,7 +219,6 @@ async function renderScenario(id) {
     });
   }
 
-  // Lazy-load terminal + guide
   const [terminalMod, guideMod] = await Promise.all([
     import('./terminal.js'),
     import('./guide-panel.js')
@@ -257,18 +269,12 @@ async function renderScenario(id) {
       return;
     }
 
-    // Terminal steps (prompt, output)
     await terminal.runStep(step);
     stepIndex++;
     runNextStep();
   }
 
   runNextStep();
-}
-
-function sleep(ms) {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return Promise.resolve();
-  return new Promise(r => setTimeout(r, ms));
 }
 
 // --- Complete View ---
@@ -284,12 +290,12 @@ async function renderComplete(id) {
 
   app.innerHTML = `
     <div class="complete-view">
-      <div class="complete-icon">✓</div>
+      <div class="complete-icon" aria-hidden="true">✓</div>
       <h2 class="complete-title">시나리오 완료!</h2>
-      <p class="complete-scenario">"${scenario?.title || id}"을 완료했습니다</p>
+      <p class="complete-scenario">"${escapeHtml(scenario?.title || id)}"을 완료했습니다</p>
       <p class="complete-time">소요 시간: ${elapsed}</p>
       <div class="complete-actions">
-        ${next ? `<a href="#/scenario/${next.id}" class="btn btn-primary">다음: ${next.title} →</a>` : ''}
+        ${next ? `<a href="#/scenario/${next.id}" class="btn btn-primary">다음: ${escapeHtml(next.title)} →</a>` : ''}
         <a href="#/" class="btn btn-secondary">홈으로</a>
       </div>
     </div>
@@ -303,8 +309,12 @@ function initFilters() {
   group.addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
-    group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    group.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
     btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
     activeFilter = btn.dataset.filter;
     const route = getRoute();
     if (route.view === 'home') renderHome();
@@ -316,6 +326,7 @@ function checkStorage() {
   if (!progress.isAvailable()) {
     const banner = document.createElement('div');
     banner.className = 'storage-banner';
+    banner.setAttribute('role', 'alert');
     banner.textContent = '프라이빗 모드에서는 진행 상태가 저장되지 않습니다.';
     document.body.insertBefore(banner, document.body.firstChild);
   }

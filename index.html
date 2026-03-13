@@ -20,10 +20,10 @@
       </a>
     </div>
     <div class="header-right">
-      <div class="filter-group" id="filter-group">
-        <button class="filter-btn active" data-filter="all">모두</button>
-        <button class="filter-btn" data-filter="dev">개발자</button>
-        <button class="filter-btn" data-filter="non-dev">비개발자</button>
+      <div class="filter-group" id="filter-group" role="group" aria-label="대상 필터">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">모두</button>
+        <button class="filter-btn" data-filter="dev" aria-pressed="false">개발자</button>
+        <button class="filter-btn" data-filter="non-dev" aria-pressed="false">비개발자</button>
       </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환">
         <span class="theme-icon">◐</span>

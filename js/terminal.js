@@ -1,4 +1,7 @@
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', e => {
+  prefersReducedMotion = e.matches;
+});
 
 function sleep(ms) {
   if (prefersReducedMotion || ms <= 0) return Promise.resolve();
@@ -12,12 +15,12 @@ export class Terminal {
 
     this.container.innerHTML = `
       <div class="terminal" role="log" aria-label="터미널 시뮬레이터">
-        <div class="terminal-chrome">
+        <div class="terminal-chrome" aria-hidden="true">
           <div class="terminal-dot red"></div>
           <div class="terminal-dot yellow"></div>
           <div class="terminal-dot green"></div>
         </div>
-        <div class="terminal-body" id="terminal-body"></div>
+        <div class="terminal-body"></div>
       </div>
     `;
 
@@ -42,11 +45,18 @@ export class Terminal {
 
     const promptLine = document.createElement('div');
     promptLine.className = 'terminal-prompt';
-    promptLine.innerHTML = `
-      <span class="prompt-cwd">${step.cwd || '~'} $</span>
-      <span class="prompt-input"></span>
-      <span class="typing-cursor"></span>
-    `;
+
+    const cwdSpan = document.createElement('span');
+    cwdSpan.className = 'prompt-cwd';
+    cwdSpan.textContent = `${step.cwd || '~'} $`;
+
+    const inputSpan = document.createElement('span');
+    inputSpan.className = 'prompt-input';
+
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+
+    promptLine.append(cwdSpan, inputSpan, cursor);
     this.body.appendChild(promptLine);
 
     const choiceGroup = document.createElement('div');
@@ -56,7 +66,6 @@ export class Terminal {
       const btn = document.createElement('button');
       btn.className = i === 0 ? 'choice-btn' : 'choice-btn secondary';
       btn.textContent = choice.label;
-      btn.setAttribute('aria-label', choice.label);
       choiceGroup.appendChild(btn);
     });
 
@@ -66,6 +75,7 @@ export class Terminal {
     return new Promise(resolve => {
       const hintEl = document.createElement('div');
       hintEl.className = 'choice-hint';
+      hintEl.setAttribute('role', 'alert');
       let hintAdded = false;
 
       choiceGroup.querySelectorAll('.choice-btn').forEach((btn, i) => {
@@ -89,16 +99,11 @@ export class Terminal {
             return;
           }
 
-          // Correct choice
           choiceGroup.remove();
           if (hintAdded) hintEl.remove();
 
-          const inputSpan = promptLine.querySelector('.prompt-input');
-          const cursor = promptLine.querySelector('.typing-cursor');
-
           await this.typeText(inputSpan, choice.label);
-
-          if (cursor) cursor.remove();
+          cursor.remove();
 
           await sleep(200);
           resolve();
