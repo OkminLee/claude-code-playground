@@ -559,6 +559,21 @@ a:hover {
   line-height: 1.6;
 }
 
+.guide-card-body code,
+.guide-narration code {
+  background: var(--border);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.guide-card-body strong,
+.guide-narration strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 .guide-continue-btn {
   display: block;
   width: 100%;

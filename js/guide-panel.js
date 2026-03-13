@@ -4,6 +4,14 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+function renderText(str) {
+  let safe = escapeHtml(str);
+  safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
+  safe = safe.replace(/\n/g, '<br>');
+  return safe;
+}
+
 export class GuidePanel {
   constructor(container) {
     this.container = container;
@@ -23,7 +31,7 @@ export class GuidePanel {
       this.container.innerHTML = `
         <div class="guide-step-indicator">Step ${stepIndex + 1} / ${this.totalSteps}</div>
         <div class="guide-narration">
-          <p>${escapeHtml(step.text)}</p>
+          <p>${renderText(step.text)}</p>
         </div>
         <button class="guide-continue-btn">계속 →</button>
       `;
@@ -41,7 +49,7 @@ export class GuidePanel {
         <div class="guide-card">
           <div class="guide-card-icon" aria-hidden="true">💡</div>
           <h3 class="guide-card-title">${escapeHtml(step.title)}</h3>
-          <p class="guide-card-body">${escapeHtml(step.body)}</p>
+          <p class="guide-card-body">${renderText(step.body)}</p>
         </div>
         <button class="guide-continue-btn">계속 →</button>
       `;
