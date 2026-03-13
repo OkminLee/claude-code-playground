@@ -1,0 +1,80 @@
+{
+  "id": "01-install",
+  "chapter": 1,
+  "chapterTitle": "시작하기",
+  "title": "설치 & 첫 실행",
+  "description": "Claude Code를 설치하고 처음 실행해봅니다",
+  "difficulty": 1,
+  "audience": "all",
+  "estimatedMinutes": 3,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 Anthropic이 만든 AI 코딩 어시스턴트입니다. 터미널에서 직접 실행하며, 파일을 읽고 수정하고 명령어를 실행할 수 있습니다. 먼저 설치부터 해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~",
+      "choices": [
+        { "label": "npm install -g @anthropic-ai/claude-code", "correct": true },
+        { "label": "brew install claude", "correct": false, "hint": "Claude Code는 npm 패키지입니다. npm으로 설치해보세요." },
+        { "label": "pip install claude-code", "correct": false, "hint": "Claude Code는 Node.js 기반입니다. npm을 사용하세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "npm warn deprecated some-package@1.0.0", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 200 },
+        { "text": "added 1 package in 3.2s", "delay": 800 },
+        { "text": "", "delay": 100 },
+        { "text": "Successfully installed @anthropic-ai/claude-code@1.0.23", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "왜 npm인가요?",
+      "body": "Claude Code는 Node.js 기반 CLI 도구입니다. npm(Node Package Manager)을 통해 전역(-g) 설치하면 터미널 어디서든 'claude' 명령어를 사용할 수 있습니다. Node.js 18 이상이 필요합니다."
+    },
+    {
+      "type": "narration",
+      "text": "설치가 완료되었습니다! 이제 프로젝트 폴더로 이동해서 Claude Code를 실행해보세요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "claude", "correct": true },
+        { "label": "claude --help", "correct": false, "hint": "도움말도 유용하지만, 먼저 기본 실행을 해볼까요? 그냥 'claude'를 입력하세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "╭────────────────────────────────────────╮", "style": "dim", "delay": 200 },
+        { "text": "│        Welcome to Claude Code!         │", "style": "info", "delay": 200 },
+        { "text": "│                                        │", "style": "dim", "delay": 100 },
+        { "text": "│  /help for available commands           │", "style": "dim", "delay": 100 },
+        { "text": "╰────────────────────────────────────────╯", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 300 },
+        { "text": "claude > _", "style": "info", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "프로젝트 폴더에서 실행하세요",
+      "body": "Claude Code는 현재 디렉토리를 기준으로 작동합니다. 프로젝트 루트에서 실행하면 해당 프로젝트의 파일을 읽고, 수정하고, 빌드 명령을 실행할 수 있습니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "Claude Code를 올바르게 시작하려면?",
+      "options": [
+        "프로젝트 폴더에서 'claude' 입력",
+        "아무 폴더에서 'claude start' 입력",
+        "브라우저에서 claude.ai 접속"
+      ],
+      "answer": 0
+    }
+  ]
+}

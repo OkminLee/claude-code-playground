@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Claude Code</title>
+  <meta name="description" content="Claude Code 사용법을 인터랙티브하게 익히는 플레이그라운드">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <a href="#/" class="logo-link">
+        <h1 class="logo">Learn Claude Code</h1>
+        <span class="logo-sub">Interactive Playground</span>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="filter-group" id="filter-group">
+        <button class="filter-btn active" data-filter="all">모두</button>
+        <button class="filter-btn" data-filter="dev">개발자</button>
+        <button class="filter-btn" data-filter="non-dev">비개발자</button>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환">
+        <span class="theme-icon">◐</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="app">
+  </main>
+
+  <script type="module" src="js/theme.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
