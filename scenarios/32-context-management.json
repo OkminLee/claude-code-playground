@@ -1,0 +1,99 @@
+{
+  "id": "32-context-management",
+  "chapter": 3,
+  "chapterTitle": "커스터마이징",
+  "title": "컨텍스트 관리",
+  "description": "컨텍스트 윈도우를 효과적으로 관리하는 방법을 배웁니다",
+  "difficulty": 2,
+  "audience": "all",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code를 오래 사용하다 보면 대화가 길어지고, 파일을 많이 읽고, 명령어 출력이 쌓입니다. 이 모든 것이 '컨텍스트 윈도우'에 저장되는데, 이를 효과적으로 관리하면 Claude의 성능을 최적으로 유지할 수 있습니다."
+    },
+    {
+      "type": "guide",
+      "title": "컨텍스트 윈도우란?",
+      "body": "컨텍스트 윈도우는 Claude가 현재 '기억하고 있는' 모든 정보입니다.\n\n포함되는 것:\n• 대화 전체 기록\n• 읽은 모든 파일 내용\n• 실행한 명령어의 출력\n• 시스템 프롬프트와 설정\n\n문제: 컨텍스트가 가득 차면 LLM 성능이 저하됩니다. 중요한 정보가 묻히고, 응답 품질이 떨어질 수 있습니다."
+    },
+    {
+      "type": "narration",
+      "text": "한 시간째 버그를 디버깅하다가 이제 완전히 다른 작업을 시작하려고 합니다. 어떻게 해야 할까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "question": "디버깅 작업을 마치고 새로운 기능 개발을 시작하려 합니다. 가장 좋은 방법은?",
+      "choices": [
+        { "label": "/clear 입력해서 컨텍스트 초기화", "correct": true },
+        { "label": "그냥 새 작업 요청하기", "correct": false, "hint": "이전 디버깅 컨텍스트가 남아있어 새 작업에 혼란을 줄 수 있습니다." },
+        { "label": "/compact로 압축하기", "correct": false, "hint": "/compact는 같은 작업을 계속할 때 유용합니다. 완전히 다른 작업이라면 /clear가 더 깔끔합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": " ▐▛███▜▌   Claude Code v2.1.74", "style": "info compact", "delay": 200 },
+        { "text": "▝▜█████▛▘  Opus 4.6 with high effort · Claude Max", "style": "dim compact", "delay": 200 },
+        { "text": "  ▘▘ ▝▝    ~/.claude", "style": "dim compact", "delay": 200 },
+        { "text": "", "delay": 300 },
+        { "text": "컨텍스트가 초기화되었습니다.", "style": "success", "delay": 400 },
+        { "text": "새로운 대화를 시작합니다.", "style": "dim", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "/compact와 /btw 활용하기",
+      "body": "같은 작업을 계속하면서 컨텍스트만 줄이고 싶다면:\n\n/compact <지시사항>\n  예: /compact 인증 로직 관련 내용만 유지해줘\n  → 지정한 내용 중심으로 대화를 요약\n\n잠깐 다른 질문이 있을 때:\n\n/btw <질문>\n  예: /btw Swift에서 async/await 문법 알려줘\n  → 메인 컨텍스트에 영향 없이 답변"
+    },
+    {
+      "type": "narration",
+      "text": "인증 시스템이 어떻게 구현되어 있는지 조사해야 합니다. 하지만 지금 진행 중인 UI 작업의 컨텍스트를 오염시키고 싶지 않습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "question": "메인 컨텍스트를 유지하면서 인증 시스템을 조사하는 가장 좋은 방법은?",
+      "choices": [
+        { "label": "서브에이전트로 조사 요청: 인증 시스템 구조 파악해줘 (서브에이전트로)", "correct": true },
+        { "label": "직접 auth 관련 파일들 읽기", "correct": false, "hint": "파일을 직접 읽으면 모든 내용이 메인 컨텍스트에 들어갑니다." },
+        { "label": "그냥 물어보기", "correct": false, "hint": "Claude가 파일을 읽고 분석하면 그 모든 내용이 현재 컨텍스트에 쌓입니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Spawning subagent: auth-investigator", "style": "info", "delay": 400 },
+        { "text": "  → 인증 시스템 구조 분석 중...", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 600 },
+        { "text": "✓ Subagent completed", "style": "success", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "=== 인증 시스템 분석 결과 ===", "style": "info", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "구조:", "delay": 200 },
+        { "text": "• JWT 기반 토큰 인증 (src/auth/jwt.ts)", "delay": 200 },
+        { "text": "• 리프레시 토큰 로테이션 적용", "delay": 200 },
+        { "text": "• OAuth2 소셜 로그인 지원 (Google, Apple)", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "메인 컨텍스트는 그대로 유지됩니다.", "style": "dim", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "자동 압축과 상태 모니터링",
+      "body": "Claude Code는 컨텍스트 한도에 가까워지면 자동으로 압축을 시도합니다.\n\n수동으로 모니터링하려면 커스텀 statusline을 설정하세요:\n\n~/.claude/settings.json에 추가:\n\"statusLine\": \"context: {contextPercent}% | cost: {cost}\"\n\n이렇게 하면 하단에 컨텍스트 사용량이 항상 표시됩니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "컨텍스트가 커졌을 때 가장 적절한 대응은?",
+      "options": [
+        "무시하고 계속 작업",
+        "작업 성격에 따라 /clear 또는 /compact 사용",
+        "Claude Code를 재시작"
+      ],
+      "answer": 1
+    }
+  ]
+}

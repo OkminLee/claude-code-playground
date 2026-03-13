@@ -78,7 +78,7 @@ async function renderHome() {
 
   const loader = await getLoader();
   const completedCount = progress.getCompletedCount();
-  const totalCount = 30;
+  const totalCount = 34;
   const pct = Math.round(completedCount / totalCount * 100);
 
   app.innerHTML = `
@@ -96,6 +96,8 @@ async function renderHome() {
           <li><a href="https://anthropic.skilljar.com/claude-code-in-action" target="_blank" rel="noopener">Claude Code in Action — Anthropic Skilljar</a></li>
           <li><a href="https://code.claude.com/docs/ko/best-practices" target="_blank" rel="noopener">Claude Code Best Practices</a></li>
           <li><a href="https://claude.com/resources/use-cases" target="_blank" rel="noopener">Claude Use Cases — Anthropic</a></li>
+          <li><a href="https://code.claude.com/docs/ko/checkpointing" target="_blank" rel="noopener">Claude Code Checkpointing</a></li>
+          <li><a href="https://code.claude.com/docs/ko/github-actions" target="_blank" rel="noopener">Claude Code GitHub Actions</a></li>
         </ul>
       </footer>
     </div>

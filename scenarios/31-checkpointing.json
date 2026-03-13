@@ -1,0 +1,113 @@
+{
+  "id": "31-checkpointing",
+  "chapter": 5,
+  "chapterTitle": "고급 기능",
+  "title": "체크포인팅 & 되감기",
+  "description": "변경 사항을 추적하고 원하는 시점으로 되돌립니다",
+  "difficulty": 2,
+  "audience": "all",
+  "estimatedMinutes": 4,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 모든 변경 사항을 자동으로 추적합니다. 위험한 접근을 시도했다가 잘 안 되면, 언제든 이전 상태로 되돌릴 수 있습니다. 체크포인팅 기능을 알아봅시다."
+    },
+    {
+      "type": "guide",
+      "title": "체크포인트란?",
+      "body": "Claude가 코드를 변경할 때마다 자동으로 체크포인트가 생성됩니다.\n\n**자동 생성**: 파일 수정, 생성, 삭제 시마다\n**세션 유지**: 세션을 닫았다가 다시 열어도 체크포인트는 유지됩니다\n**Claude 변경만 추적**: 여러분이 직접 수정한 내용이나 외부 프로세스의 변경은 추적되지 않습니다"
+    },
+    {
+      "type": "narration",
+      "text": "되감기 메뉴를 열어봅시다. 여러 방법이 있어요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "[Esc를 두 번 누름]", "correct": true },
+        { "label": "/rewind", "correct": true },
+        { "label": "[Ctrl+Z]", "correct": false, "hint": "Ctrl+Z는 일반 텍스트 편집기의 실행 취소입니다. Claude Code에서는 Esc+Esc 또는 /rewind를 사용하세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "=== 되감기 메뉴 ===", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "체크포인트 목록:", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "3. [방금 전] UserService 리팩토링 - 메서드 분리", "delay": 300 },
+        { "text": "2. [3분 전] 로그인 로직 수정", "delay": 300 },
+        { "text": "1. [10분 전] 초기 파일 구조 설정", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "되돌릴 체크포인트를 선택하세요: _", "style": "info", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "복원 옵션",
+      "body": "체크포인트를 선택하면 3가지 복원 옵션이 나타납니다:\n\n**대화만 복원**: 코드는 그대로, 대화 히스토리만 되돌림\n**코드만 복원**: 대화는 유지, 파일 변경만 되돌림\n**둘 다 복원**: 대화와 코드 모두 해당 시점으로\n\n추가로 **요약 후 계속** 옵션도 있어서, 해당 시점까지의 작업을 요약하고 새로운 방향으로 진행할 수 있습니다."
+    },
+    {
+      "type": "narration",
+      "text": "실제 상황을 시뮬레이션해봅시다. Claude가 리팩토링을 했는데 테스트가 깨졌어요."
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": " ▐▛███▜▌   Claude Code v2.1.74", "style": "info compact", "delay": 200 },
+        { "text": "▝▜█████▛▘  Opus 4.6 with high effort · Claude Max", "style": "dim compact", "delay": 200 },
+        { "text": "  ▘▘ ▝▝    ~/.claude", "style": "dim compact", "delay": 200 },
+        { "text": "", "delay": 300 },
+        { "text": "리팩토링을 완료했습니다. UserService를 더 작은 메서드로 분리했어요.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "테스트를 실행해볼게요...", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "FAIL: UserService.test.ts", "style": "error", "delay": 400 },
+        { "text": "  ✗ createUser should validate email", "style": "error", "delay": 300 },
+        { "text": "  ✗ createUser should hash password", "style": "error", "delay": 300 },
+        { "text": "  ✗ 5 tests failed", "style": "error", "delay": 300 }
+      ]
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "[Esc+Esc 눌러서 되감기하고 다른 접근 시도]", "correct": true },
+        { "label": "계속 디버깅해줘", "correct": false, "hint": "디버깅도 가능하지만, 접근 자체가 잘못됐다면 되감기 후 다른 방법을 시도하는 게 더 빠를 수 있어요." },
+        { "label": "테스트 무시하고 진행해", "correct": false, "hint": "테스트 실패를 무시하면 나중에 더 큰 문제가 될 수 있어요. 되감기로 안전한 상태로 돌아가봅시다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "=== 되감기 ===", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "체크포인트 '로그인 로직 수정'으로 되돌립니다...", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 300 },
+        { "text": "✓ 3개 파일 복원 완료", "style": "success", "delay": 400 },
+        { "text": "✓ 대화 히스토리 복원 완료", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "이제 다른 방식으로 리팩토링을 시도해볼게요. 이번에는 테스트를 먼저 확인하면서 진행할게요.", "delay": 500 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "체크포인트 vs Git",
+      "body": "체크포인트는 Git을 대체하지 않습니다!\n\n**체크포인트 용도**:\n- Claude 작업 중 빠른 되돌리기\n- 실험적 접근 시도 후 롤백\n- 세션 내 안전망\n\n**Git은 여전히 필요**:\n- 영구적인 버전 관리\n- 팀 협업\n- 브랜치 전략\n\n체크포인트로 실험하고, 만족스러우면 Git으로 커밋하세요!"
+    },
+    {
+      "type": "checkpoint",
+      "question": "체크포인트를 언제 사용하면 좋을까요?",
+      "options": [
+        "위험하거나 실험적인 접근을 시도할 때",
+        "Git 커밋 대신 사용할 때",
+        "외부 도구가 파일을 수정했을 때"
+      ],
+      "answer": 0
+    }
+  ]
+}

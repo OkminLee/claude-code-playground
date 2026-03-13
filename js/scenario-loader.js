@@ -1,6 +1,6 @@
 const cache = new Map();
 let manifest = null;
-const APP_VERSION = '2';
+const APP_VERSION = '3';
 
 export const loader = {
   async getManifest() {

@@ -29,6 +29,10 @@
     { "id": "27-document-writing", "chapter": 9, "chapterTitle": "비개발자 활용", "title": "문서 작성 도우미", "difficulty": 1, "audience": "non-dev", "estimatedMinutes": 5, "file": "27-document-writing.json" },
     { "id": "28-data-analysis", "chapter": 9, "chapterTitle": "비개발자 활용", "title": "데이터 분석", "difficulty": 2, "audience": "non-dev", "estimatedMinutes": 5, "file": "28-data-analysis.json" },
     { "id": "29-business-automation", "chapter": 9, "chapterTitle": "비개발자 활용", "title": "마케팅/HR/기획 자동화", "difficulty": 1, "audience": "non-dev", "estimatedMinutes": 5, "file": "29-business-automation.json" },
-    { "id": "30-presentations", "chapter": 9, "chapterTitle": "비개발자 활용", "title": "프레젠테이션 제작", "difficulty": 2, "audience": "non-dev", "estimatedMinutes": 5, "file": "30-presentations.json" }
+    { "id": "30-presentations", "chapter": 9, "chapterTitle": "비개발자 활용", "title": "프레젠테이션 제작", "difficulty": 2, "audience": "non-dev", "estimatedMinutes": 5, "file": "30-presentations.json" },
+    { "id": "31-checkpointing", "chapter": 5, "chapterTitle": "고급 기능", "title": "체크포인팅 & 되감기", "difficulty": 2, "audience": "all", "estimatedMinutes": 4, "file": "31-checkpointing.json" },
+    { "id": "32-context-management", "chapter": 3, "chapterTitle": "커스터마이징", "title": "컨텍스트 관리", "difficulty": 2, "audience": "all", "estimatedMinutes": 5, "file": "32-context-management.json" },
+    { "id": "33-failure-patterns", "chapter": 10, "chapterTitle": "모범 사례", "title": "흔한 실패 패턴", "difficulty": 2, "audience": "all", "estimatedMinutes": 5, "file": "33-failure-patterns.json" },
+    { "id": "34-github-actions", "chapter": 7, "chapterTitle": "Git & 코드 리뷰", "title": "GitHub Actions 연동", "difficulty": 3, "audience": "dev", "estimatedMinutes": 5, "file": "34-github-actions.json" }
   ]
 }
