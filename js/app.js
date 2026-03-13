@@ -90,6 +90,14 @@ async function renderHome() {
       <div id="home-content">
         <p class="loading-text">시나리오를 불러오는 중...</p>
       </div>
+      <footer class="sources">
+        <p class="sources-title">학습 컨텐츠 출처</p>
+        <ul>
+          <li><a href="https://anthropic.skilljar.com/claude-code-in-action" target="_blank" rel="noopener">Claude Code in Action — Anthropic Skilljar</a></li>
+          <li><a href="https://code.claude.com/docs/ko/best-practices" target="_blank" rel="noopener">Claude Code Best Practices</a></li>
+          <li><a href="https://claude.com/resources/use-cases" target="_blank" rel="noopener">Claude Use Cases — Anthropic</a></li>
+        </ul>
+      </footer>
     </div>
   `;
 
