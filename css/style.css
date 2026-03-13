@@ -554,6 +554,26 @@ a:hover {
   line-height: 1.6;
 }
 
+.guide-continue-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  margin-top: var(--spacing-md);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.guide-continue-btn:hover {
+  background: var(--accent-hover);
+}
+
 /* ===== Checkpoint ===== */
 .checkpoint {
   background: var(--bg-secondary);

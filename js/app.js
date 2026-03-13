@@ -237,17 +237,15 @@ async function renderScenario(id) {
     progress.savePosition(id, stepIndex);
 
     if (step.type === 'narration') {
-      guide.showNarration(step, stepIndex);
+      await guide.showNarration(step, stepIndex);
       stepIndex++;
-      await sleep(600);
       runNextStep();
       return;
     }
 
     if (step.type === 'guide') {
-      guide.showGuide(step, stepIndex);
+      await guide.showGuide(step, stepIndex);
       stepIndex++;
-      await sleep(800);
       runNextStep();
       return;
     }

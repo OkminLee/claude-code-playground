@@ -11,24 +11,32 @@ export class GuidePanel {
 
   showNarration(step, stepIndex) {
     this.currentStep = stepIndex;
-    this.container.innerHTML = `
-      <div class="guide-step-indicator">Step ${stepIndex + 1} / ${this.totalSteps}</div>
-      <div class="guide-narration">
-        <p>${step.text}</p>
-      </div>
-    `;
+    return new Promise(resolve => {
+      this.container.innerHTML = `
+        <div class="guide-step-indicator">Step ${stepIndex + 1} / ${this.totalSteps}</div>
+        <div class="guide-narration">
+          <p>${step.text}</p>
+        </div>
+        <button class="guide-continue-btn">계속 →</button>
+      `;
+      this.container.querySelector('.guide-continue-btn').addEventListener('click', resolve);
+    });
   }
 
   showGuide(step, stepIndex) {
     this.currentStep = stepIndex;
-    this.container.innerHTML = `
-      <div class="guide-step-indicator">Step ${stepIndex + 1} / ${this.totalSteps}</div>
-      <div class="guide-card">
-        <div class="guide-card-icon">💡</div>
-        <h3 class="guide-card-title">${step.title}</h3>
-        <p class="guide-card-body">${step.body}</p>
-      </div>
-    `;
+    return new Promise(resolve => {
+      this.container.innerHTML = `
+        <div class="guide-step-indicator">Step ${stepIndex + 1} / ${this.totalSteps}</div>
+        <div class="guide-card">
+          <div class="guide-card-icon">💡</div>
+          <h3 class="guide-card-title">${step.title}</h3>
+          <p class="guide-card-body">${step.body}</p>
+        </div>
+        <button class="guide-continue-btn">계속 →</button>
+      `;
+      this.container.querySelector('.guide-continue-btn').addEventListener('click', resolve);
+    });
   }
 
   showCheckpoint(step, stepIndex) {
