@@ -1,0 +1,98 @@
+{
+  "id": "20-plugins",
+  "chapter": 6,
+  "chapterTitle": "MCP & 확장",
+  "title": "Plugins 마켓플레이스",
+  "description": "플러그인 마켓플레이스에서 확장 기능을 설치합니다",
+  "difficulty": 2,
+  "audience": "all",
+  "estimatedMinutes": 4,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 플러그인 마켓플레이스를 통해 다양한 확장 기능을 제공합니다. 커뮤니티가 만든 플러그인을 쉽게 설치하고 사용할 수 있어요."
+    },
+    {
+      "type": "guide",
+      "title": "Plugins vs MCP",
+      "body": "플러그인은 MCP 서버를 더 쉽게 설치할 수 있도록 패키징한 것입니다.\n\n• 원클릭 설치\n• 자동 설정\n• 버전 관리\n• 커뮤니티 검증\n\nMCP를 직접 설정하는 것보다 훨씬 간편합니다."
+    },
+    {
+      "type": "narration",
+      "text": "마켓플레이스에서 어떤 플러그인이 있는지 살펴볼까요? /plugins 명령어를 사용합니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "/plugins", "correct": true },
+        { "label": "claude plugins list", "correct": false, "hint": "Claude Code 안에서는 슬래시 명령어를 사용합니다. '/plugins'를 입력하세요." },
+        { "label": "/marketplace", "correct": false, "hint": "플러그인 마켓플레이스는 '/plugins' 명령어로 접근합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "Plugin Marketplace", "style": "info", "delay": 300 },
+        { "text": "────────────────────────────────────────", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "★ Popular", "style": "info", "delay": 300 },
+        { "text": "  github      - GitHub 이슈, PR, 코드 검색", "delay": 250 },
+        { "text": "  sentry      - 에러 모니터링 & 디버깅", "delay": 250 },
+        { "text": "  linear      - 프로젝트 관리 & 이슈 트래킹", "delay": 250 },
+        { "text": "  slack       - 팀 커뮤니케이션", "delay": 250 },
+        { "text": "", "delay": 200 },
+        { "text": "★ Developer Tools", "style": "info", "delay": 300 },
+        { "text": "  postgres    - PostgreSQL 데이터베이스", "delay": 250 },
+        { "text": "  firebase    - Firebase 서비스 연동", "delay": 250 },
+        { "text": "  context7    - 라이브러리 문서 검색", "delay": 250 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "Sentry 플러그인을 설치해보겠습니다. 에러가 발생했을 때 Claude가 직접 Sentry에서 정보를 가져와 디버깅을 도와줄 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "/install sentry", "correct": true },
+        { "label": "npm install sentry-plugin", "correct": false, "hint": "플러그인 설치는 '/install' 슬래시 명령어를 사용합니다." },
+        { "label": "/plugins add sentry", "correct": false, "hint": "플러그인 설치 명령어는 '/install 플러그인명'입니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "Installing plugin: sentry", "style": "info", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "? Sentry Auth Token: ********", "style": "dim", "delay": 500 },
+        { "text": "? Organization: my-org", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "✓ Plugin 'sentry' installed successfully", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Available tools:", "style": "dim", "delay": 300 },
+        { "text": "  • get_issue - 에러 상세 정보 조회", "style": "dim", "delay": 250 },
+        { "text": "  • search_errors - 에러 검색", "style": "dim", "delay": 250 },
+        { "text": "  • get_stacktrace - 스택트레이스 분석", "style": "dim", "delay": 250 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "인기 플러그인 활용법",
+      "body": "• GitHub: 'PR 만들어줘', '이슈 #42 분석해줘'\n• Sentry: '최근 에러 보여줘', '이 에러 원인 찾아줘'\n• Linear: '이번 스프린트 이슈 정리해줘'\n• Slack: '팀 채널에 배포 알림 보내줘'\n\n자연어로 요청하면 Claude가 적절한 플러그인을 사용합니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "플러그인 마켓플레이스를 여는 명령어는?",
+      "options": [
+        "/marketplace",
+        "/plugins",
+        "/extensions"
+      ],
+      "answer": 1
+    }
+  ]
+}

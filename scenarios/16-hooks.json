@@ -1,0 +1,116 @@
+{
+  "id": "16-hooks",
+  "chapter": 5,
+  "chapterTitle": "고급 기능",
+  "title": "Hooks",
+  "description": "이벤트 기반 자동화로 워크플로우를 커스터마이즈합니다",
+  "difficulty": 3,
+  "audience": "dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Hooks는 Claude Code의 특정 이벤트에 자동으로 실행되는 스크립트입니다. 파일 수정 전 린트 검사, 커밋 메시지 검증 등 다양한 자동화가 가능합니다."
+    },
+    {
+      "type": "guide",
+      "title": "Hook 이벤트 종류",
+      "body": "PreToolUse: 도구 실행 전\nPostToolUse: 도구 실행 후\nNotification: 알림 발생 시\nStop: Claude가 응답 완료 시\n\n각 이벤트에 셸 명령어나 스크립트를 연결할 수 있습니다."
+    },
+    {
+      "type": "narration",
+      "text": "Hooks는 .claude/settings.json 파일에 설정합니다. 먼저 설정 파일 구조를 살펴볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": ".claude/settings.json 파일 보여줘", "correct": true },
+        { "label": "Hook 설정해줘", "correct": false, "hint": "먼저 설정 파일의 구조를 이해한 후 설정해봐요." },
+        { "label": "Hooks가 뭐야?", "correct": false, "hint": "방금 설명했어요! 설정 파일을 직접 확인해봅시다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Read .claude/settings.json", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "{", "delay": 200 },
+        { "text": "  \"hooks\": {", "delay": 200 },
+        { "text": "    \"PreToolUse\": [", "delay": 200 },
+        { "text": "      {", "delay": 100 },
+        { "text": "        \"matcher\": \"Edit\",", "delay": 200 },
+        { "text": "        \"command\": \"echo 'File edit detected'\"", "delay": 200 },
+        { "text": "      }", "delay": 100 },
+        { "text": "    ]", "delay": 200 },
+        { "text": "  }", "delay": 200 },
+        { "text": "}", "delay": 200 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "실용적인 Hook을 추가해봅시다. 파일을 수정할 때마다 자동으로 ESLint 검사를 실행하는 Hook입니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "Edit 도구 사용 후 ESLint를 자동 실행하는 Hook을 추가해줘", "correct": true },
+        { "label": "린트 검사 추가해줘", "correct": false, "hint": "어떤 시점에, 어떤 도구 사용 시 린트를 실행할지 명시해주세요." },
+        { "label": "settings.json 수정해줘", "correct": false, "hint": "무엇을 수정할지 구체적으로 요청해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "PostToolUse Hook을 추가하겠습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Edit .claude/settings.json", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "추가된 Hook:", "style": "success", "delay": 300 },
+        { "text": "  이벤트: PostToolUse", "delay": 300 },
+        { "text": "  매처: Edit (파일 수정 시)", "delay": 300 },
+        { "text": "  명령: npx eslint --fix $CLAUDE_FILE_PATH", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "이제 파일을 수정할 때마다 ESLint가 자동 실행됩니다.", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "Hook에서 사용 가능한 환경 변수",
+      "body": "Hook 명령에서 다양한 환경 변수를 사용할 수 있습니다:\n- $CLAUDE_FILE_PATH: 수정된 파일 경로\n- $CLAUDE_TOOL_NAME: 실행된 도구 이름\n- $CLAUDE_PROJECT_DIR: 프로젝트 루트 경로"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "Notification Hook도 추가해서 작업 완료 시 macOS 알림을 보내줘", "correct": true },
+        { "label": "다른 Hook 예시 보여줘", "correct": false, "hint": "직접 실용적인 Hook을 추가해봐요!" }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Notification Hook을 추가합니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Edit .claude/settings.json", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "추가된 Hook:", "style": "success", "delay": 300 },
+        { "text": "  이벤트: Notification", "delay": 300 },
+        { "text": "  명령: osascript -e 'display notification \"$CLAUDE_MESSAGE\"'", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "이제 Claude가 알림을 보낼 때 macOS 알림센터에 표시됩니다.", "delay": 400 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "파일 수정 '후'에 자동으로 스크립트를 실행하려면 어떤 Hook을 사용해야 할까요?",
+      "options": [
+        "PostToolUse",
+        "PreToolUse",
+        "Notification"
+      ],
+      "answer": 0
+    }
+  ]
+}

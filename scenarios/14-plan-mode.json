@@ -1,0 +1,135 @@
+{
+  "id": "14-plan-mode",
+  "chapter": 4,
+  "chapterTitle": "실전 개발 워크플로우",
+  "title": "Plan Mode",
+  "description": "큰 작업을 계획하고 단계적으로 실행합니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "복잡한 작업은 바로 실행하기보다 계획을 먼저 세우는 게 좋습니다. Claude Code의 Plan 모드를 사용하면 실행 전에 전체 계획을 검토하고 수정할 수 있습니다."
+    },
+    {
+      "type": "guide",
+      "title": "Plan 모드란?",
+      "body": "Plan 모드에서 Claude는 코드를 바로 수정하지 않고, 먼저 작업 계획을 세웁니다. 계획을 검토한 후 승인하면 그때 실행합니다. 큰 변경이나 복잡한 작업에 특히 유용합니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "[Shift+Tab을 눌러 Plan 모드로 전환]", "correct": true },
+        { "label": "/plan 입력", "correct": false, "hint": "Plan 모드는 Shift+Tab 단축키로 전환해요. 입력 모드가 바뀌는 걸 확인할 수 있습니다." },
+        { "label": "계획 세워줘", "correct": false, "hint": "자연어로도 요청할 수 있지만, 공식적인 Plan 모드 전환은 Shift+Tab입니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "Mode: Plan", "style": "info", "delay": 400 },
+        { "text": "이 모드에서는 먼저 계획을 세우고, 승인 후 실행합니다.", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "claude (plan) > _", "style": "info", "delay": 400 }
+      ]
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "사용자 인증 시스템을 추가하고 싶어. JWT 기반으로, 로그인/회원가입/비밀번호 재설정 기능이 필요해", "correct": true },
+        { "label": "인증 기능 추가해줘", "correct": false, "hint": "Plan 모드에서는 요구사항을 상세히 설명해야 좋은 계획이 나와요." },
+        { "label": "로그인 만들어줘", "correct": false, "hint": "전체 범위를 먼저 알려주면 더 완전한 계획을 세울 수 있어요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "인증 시스템 구현 계획을 세워볼게요.", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "=== 실행 계획 ===", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "1단계: 의존성 설치", "delay": 300 },
+        { "text": "   - jsonwebtoken, bcrypt, express-validator 추가", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "2단계: 데이터베이스 스키마", "delay": 300 },
+        { "text": "   - User 모델 생성 (email, password, resetToken 등)", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "3단계: 인증 미들웨어", "delay": 300 },
+        { "text": "   - JWT 검증 미들웨어 작성", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "4단계: API 라우트", "delay": 300 },
+        { "text": "   - POST /auth/register, /auth/login, /auth/reset-password", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "5단계: 테스트", "delay": 300 },
+        { "text": "   - 각 엔드포인트에 대한 통합 테스트", "style": "dim", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "계획이 나왔습니다. 이제 검토하고, 수정이 필요하면 피드백을 주거나, 승인하면 실행이 시작됩니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "좋아! 근데 이메일 인증도 추가해줄 수 있어?", "correct": true },
+        { "label": "실행해", "correct": false, "hint": "바로 실행해도 되지만, 계획을 수정하거나 보완할 기회를 활용해봐요." },
+        { "label": "취소", "correct": false, "hint": "취소하기보다 피드백을 주면 계획을 개선할 수 있어요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "좋은 제안이에요! 계획을 수정합니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "=== 수정된 계획 ===", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "2단계: 데이터베이스 스키마 (수정됨)", "delay": 300 },
+        { "text": "   - User 모델에 emailVerified, verificationToken 필드 추가", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "4단계: API 라우트 (수정됨)", "delay": 300 },
+        { "text": "   - POST /auth/verify-email 추가", "style": "dim", "delay": 300 },
+        { "text": "   - 회원가입 시 인증 이메일 발송 로직 추가", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "이 계획으로 진행할까요? (yes/no)", "delay": 500 }
+      ]
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "yes", "correct": true },
+        { "label": "1단계만 먼저 실행해줘", "correct": false, "hint": "부분 실행도 가능하지만, 먼저 전체 계획을 승인해봐요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "계획을 실행합니다.", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "[1/5] 의존성 설치 중...", "style": "dim", "delay": 600 },
+        { "text": "  ✓ 완료", "style": "success", "delay": 400 },
+        { "text": "[2/5] User 모델 생성 중...", "style": "dim", "delay": 600 },
+        { "text": "  ✓ 완료", "style": "success", "delay": 400 },
+        { "text": "[3/5] 인증 미들웨어 작성 중...", "style": "dim", "delay": 600 },
+        { "text": "  ✓ 완료", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "진행 중... (2개 단계 남음)", "style": "info", "delay": 400 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Plan 모드의 장점은?",
+      "options": [
+        "실행 전에 전체 계획을 검토하고 수정할 수 있다",
+        "코드가 더 빨리 작성된다",
+        "자동으로 테스트가 생성된다"
+      ],
+      "answer": 0
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "id": "27-document-writing",
+  "chapter": 9,
+  "chapterTitle": "비개발자 활용",
+  "title": "문서 작성 도우미",
+  "description": "보고서, 이메일, 제안서 작성을 Claude와 함께합니다",
+  "difficulty": 1,
+  "audience": "non-dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 개발자만을 위한 도구가 아닙니다. 문서 작성, 수정, 검토 등 다양한 업무에 활용할 수 있습니다. 보고서 초안 작성부터 시작해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Documents",
+      "choices": [
+        { "label": "claude", "correct": true },
+        { "label": "claude --help", "correct": false, "hint": "먼저 Claude를 실행해보세요. 도움말은 나중에 확인해도 됩니다." },
+        { "label": "word", "correct": false, "hint": "Claude Code는 터미널에서 'claude' 명령어로 실행합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "╭────────────────────────────────────────╮", "style": "dim", "delay": 200 },
+        { "text": "│        Welcome to Claude Code!         │", "style": "info", "delay": 200 },
+        { "text": "╰────────────────────────────────────────╯", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "claude > _", "style": "info", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "이제 보고서 초안 작성을 요청해봅니다. 주제, 대상 독자, 분량 등을 명확히 전달할수록 좋은 결과를 얻을 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Documents",
+      "choices": [
+        { "label": "2분기 마케팅 성과 보고서 초안을 작성해줘. 경영진 대상, A4 2페이지 분량으로. 주요 KPI와 인사이트 중심으로 구성해줘", "correct": true },
+        { "label": "보고서 써줘", "correct": false, "hint": "어떤 보고서인지 구체적으로 설명해주세요. 주제, 독자, 분량 등을 포함하면 좋습니다." },
+        { "label": "마케팅 보고서", "correct": false, "hint": "좀 더 구체적인 요청이 필요합니다. 어떤 내용을 포함할지 설명해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "네, 2분기 마케팅 성과 보고서 초안을 작성하겠습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "# 2분기 마케팅 성과 보고서", "style": "info", "delay": 300 },
+        { "text": "", "delay": 100 },
+        { "text": "## Executive Summary", "delay": 300 },
+        { "text": "2분기 마케팅 활동 결과, 전분기 대비 리드 생성 23% 증가,", "delay": 400 },
+        { "text": "고객 획득 비용(CAC) 15% 절감을 달성했습니다...", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "## 주요 KPI 달성 현황", "delay": 300 },
+        { "text": "...", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "report-q2-draft.md 파일로 저장했습니다.", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "좋은 요청의 구성 요소",
+      "body": "1) 문서 유형 (보고서, 이메일, 제안서) 2) 대상 독자 (경영진, 팀원, 고객) 3) 분량 4) 포함할 내용 5) 톤앤매너. 이 정보를 명확히 전달할수록 수정 횟수가 줄어듭니다."
+    },
+    {
+      "type": "narration",
+      "text": "기존 문서를 개선하는 것도 가능합니다. 파일을 지정하고 수정 방향을 요청해보세요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Documents",
+      "choices": [
+        { "label": "proposal.md 파일을 읽고, 더 설득력 있게 수정해줘. 구체적인 숫자와 사례를 추가해줘", "correct": true },
+        { "label": "proposal.md 수정해줘", "correct": false, "hint": "어떤 방향으로 수정할지 구체적으로 알려주세요." },
+        { "label": "제안서 개선", "correct": false, "hint": "어떤 파일인지, 어떻게 개선할지 명확히 해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "proposal.md 파일을 분석했습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "개선 사항:", "style": "info", "delay": 300 },
+        { "text": "1. '비용 절감 효과' → '연간 2.4억원 비용 절감 (업계 평균 대비 40%)'", "delay": 400 },
+        { "text": "2. '성공 사례 추가' → 'A사 도입 후 처리 시간 60% 단축'", "delay": 400 },
+        { "text": "3. 경쟁사 대비 우위 섹션 신규 추가", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "proposal.md 파일을 수정했습니다.", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "이메일 작성도 요청할 수 있습니다. 톤앤매너를 지정하면 상황에 맞는 이메일을 작성해줍니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Documents",
+      "choices": [
+        { "label": "프로젝트 지연에 대해 고객사에 보낼 이메일을 작성해줘. 진심 어린 사과와 함께 새로운 일정을 제안하는 톤으로, 전문적이지만 따뜻하게", "correct": true },
+        { "label": "사과 이메일 써줘", "correct": false, "hint": "누구에게, 어떤 상황에서, 어떤 톤으로 쓸지 설명해주세요." },
+        { "label": "이메일 작성", "correct": false, "hint": "구체적인 상황과 원하는 톤을 설명해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "이메일 초안을 작성했습니다:", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "제목: [프로젝트명] 일정 조정 안내 및 사과 말씀", "style": "info", "delay": 300 },
+        { "text": "", "delay": 100 },
+        { "text": "안녕하세요, [담당자]님", "delay": 300 },
+        { "text": "", "delay": 100 },
+        { "text": "먼저 프로젝트 진행 과정에서 예상치 못한 지연이 발생한 점", "delay": 400 },
+        { "text": "진심으로 사과드립니다...", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "email-apology.md 파일로 저장했습니다.", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "문서 작성 요청시 포함하면 좋은 정보는?",
+      "options": [
+        "문서 유형, 대상 독자, 분량, 톤앤매너",
+        "작성 날짜와 시간",
+        "사용할 폰트와 색상"
+      ],
+      "answer": 0
+    }
+  ]
+}

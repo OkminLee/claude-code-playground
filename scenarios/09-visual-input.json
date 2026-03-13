@@ -1,0 +1,125 @@
+{
+  "id": "09-visual-input",
+  "chapter": 3,
+  "chapterTitle": "커스터마이징",
+  "title": "이미지/스크린샷 활용",
+  "description": "시각적 자료로 Claude와 소통합니다",
+  "difficulty": 1,
+  "audience": "all",
+  "estimatedMinutes": 4,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 이미지를 이해할 수 있습니다. 스크린샷, 와이어프레임, 에러 화면 등을 보여주면서 작업을 요청할 수 있습니다."
+    },
+    {
+      "type": "guide",
+      "title": "이미지 입력 방법",
+      "body": "**파일 경로**: \"design.png 보고 구현해줘\"\n\n**드래그 앤 드롭**: 터미널에 이미지를 끌어다 놓기 (지원 터미널 한정)\n\n**클립보드**: 스크린샷을 복사 후 붙여넣기"
+    },
+    {
+      "type": "narration",
+      "text": "디자인 스크린샷을 보고 UI를 구현해달라고 요청해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "designs/login-page.png 보고 로그인 폼 컴포넌트 만들어줘", "correct": true },
+        { "label": "로그인 폼 만들어줘", "correct": false, "hint": "디자인 파일을 참조하면 정확한 UI를 구현할 수 있습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Reading image: designs/login-page.png", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 400 },
+        { "text": "디자인 분석 결과:", "delay": 400 },
+        { "text": "- 이메일/비밀번호 입력 필드", "delay": 300 },
+        { "text": "- '로그인' 버튼 (파란색, 둥근 모서리)", "delay": 300 },
+        { "text": "- '비밀번호 찾기' 링크", "delay": 300 },
+        { "text": "- 소셜 로그인 버튼 (Google, Apple)", "delay": 300 },
+        { "text": "", "delay": 400 },
+        { "text": "● Writing file: src/components/LoginForm.tsx", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "LoginForm 컴포넌트를 생성했습니다.", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "이미지 활용 시나리오",
+      "body": "**UI 구현**: 디자인 목업 → 코드로 변환\n\n**디버깅**: 에러 스크린샷으로 문제 파악\n\n**문서 이해**: 다이어그램, 플로우차트 분석\n\n**비교 분석**: 현재 UI vs 목표 디자인 차이점"
+    },
+    {
+      "type": "narration",
+      "text": "에러 스크린샷으로 디버깅을 요청할 수도 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "screenshots/error.png 이 에러 해결해줘", "correct": true },
+        { "label": "TypeError 해결해줘", "correct": false, "hint": "스크린샷을 공유하면 정확한 에러 메시지와 스택 트레이스를 볼 수 있습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Reading image: screenshots/error.png", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 400 },
+        { "text": "에러 분석:", "delay": 400 },
+        { "text": "TypeError: Cannot read property 'map' of undefined", "style": "error", "delay": 400 },
+        { "text": "at UserList.tsx:23", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 300 },
+        { "text": "● Reading file: src/components/UserList.tsx", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "문제: users 배열이 undefined일 때 .map() 호출", "delay": 400 },
+        { "text": "해결: 옵셔널 체이닝 또는 기본값 추가 필요", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "● Editing file: src/components/UserList.tsx", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "users?.map()으로 수정했습니다.", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "아키텍처 다이어그램을 분석해달라고 요청할 수도 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "docs/architecture.png 이 구조 설명해주고 우리 프로젝트에 적용하려면 뭘 바꿔야 해?", "correct": true }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Reading image: docs/architecture.png", "style": "dim", "delay": 600 },
+        { "text": "● Glob: pattern=\"src/**/*.ts\"", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 400 },
+        { "text": "다이어그램 분석: Clean Architecture 패턴", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "현재 프로젝트와 비교:", "delay": 300 },
+        { "text": "✓ Controllers 레이어: 이미 있음 (routes/)", "delay": 300 },
+        { "text": "✗ Use Cases 레이어: 없음 (추가 필요)", "delay": 300 },
+        { "text": "✗ Repository 패턴: 없음 (추가 필요)", "delay": 300 },
+        { "text": "", "delay": 300 },
+        { "text": "적용 방법을 단계별로 안내해드릴까요?", "delay": 500 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Claude에게 이미지를 제공하는 방법이 아닌 것은?",
+      "options": [
+        "URL 링크 공유",
+        "파일 경로 지정",
+        "터미널에 드래그 앤 드롭"
+      ],
+      "answer": 0
+    }
+  ]
+}

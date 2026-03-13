@@ -1,0 +1,106 @@
+{
+  "id": "23-subagents",
+  "chapter": 8,
+  "chapterTitle": "에이전트 활용",
+  "title": "Subagents 만들기",
+  "description": "서브에이전트를 활용해 병렬 작업을 수행합니다",
+  "difficulty": 3,
+  "audience": "dev",
+  "estimatedMinutes": 6,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 복잡한 작업을 수행할 때 서브에이전트(Subagent)를 생성해 병렬로 처리할 수 있습니다. 각 서브에이전트는 독립적인 Claude 인스턴스로, 특정 작업에 집중합니다."
+    },
+    {
+      "type": "guide",
+      "title": "서브에이전트란?",
+      "body": "서브에이전트는 메인 Claude가 생성하는 독립적인 작업 단위입니다.\n\n• 각 서브에이전트는 별도의 컨텍스트를 가짐\n• 병렬로 실행되어 시간 절약\n• 결과를 메인 에이전트가 통합\n\n예: 여러 파일을 동시에 분석하거나, 다양한 가설을 병렬로 검증"
+    },
+    {
+      "type": "narration",
+      "text": "대규모 리팩토링 작업을 예로 들어보겠습니다. 여러 모듈을 동시에 분석해야 할 때 서브에이전트가 유용합니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "이 프로젝트의 모든 API 엔드포인트를 분석해서 보안 취약점을 찾아줘", "correct": true },
+        { "label": "src/api 폴더 분석해줘", "correct": false, "hint": "더 큰 범위의 작업을 요청해야 서브에이전트가 활용됩니다." },
+        { "label": "/analyze security", "correct": false, "hint": "자연어로 복잡한 작업을 요청하면 Claude가 자동으로 서브에이전트를 활용합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "프로젝트에 23개의 API 엔드포인트가 있습니다.", "delay": 400 },
+        { "text": "효율적인 분석을 위해 서브에이전트를 생성합니다...", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "● Spawning subagent: auth-analyzer", "style": "info", "delay": 400 },
+        { "text": "  → src/api/auth/* (5 endpoints)", "style": "dim", "delay": 250 },
+        { "text": "● Spawning subagent: user-analyzer", "style": "info", "delay": 300 },
+        { "text": "  → src/api/users/* (8 endpoints)", "style": "dim", "delay": 250 },
+        { "text": "● Spawning subagent: payment-analyzer", "style": "info", "delay": 300 },
+        { "text": "  → src/api/payments/* (10 endpoints)", "style": "dim", "delay": 250 }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 400 },
+        { "text": "⏳ 서브에이전트 작업 중...", "style": "dim", "delay": 800 },
+        { "text": "", "delay": 300 },
+        { "text": "✓ auth-analyzer completed (2 issues found)", "style": "success", "delay": 500 },
+        { "text": "✓ user-analyzer completed (1 issue found)", "style": "success", "delay": 400 },
+        { "text": "✓ payment-analyzer completed (3 issues found)", "style": "success", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "결과를 통합하고 있습니다...", "style": "dim", "delay": 500 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "서브에이전트 활용 시나리오",
+      "body": "서브에이전트가 효과적인 상황:\n\n• 대규모 코드베이스 분석\n• 여러 가설 동시 검증 (디버깅)\n• 다중 파일 리팩토링\n• 병렬 테스트 실행\n\n각 서브에이전트에게 명확한 범위와 목표를 주는 것이 중요합니다."
+    },
+    {
+      "type": "narration",
+      "text": "CLAUDE.md 파일에 서브에이전트 설정을 추가하면 더 효율적으로 활용할 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "CLAUDE.md에 보안 분석용 서브에이전트 설정을 추가해줘", "correct": true },
+        { "label": ".claude/agents.json 만들어줘", "correct": false, "hint": "에이전트 설정은 CLAUDE.md 파일에 추가합니다." },
+        { "label": "/config subagents", "correct": false, "hint": "서브에이전트 설정은 CLAUDE.md에 자연어로 작성합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Editing: CLAUDE.md", "style": "info", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "Added:", "style": "dim", "delay": 300 },
+        { "text": "  ## Agent Teams", "delay": 200 },
+        { "text": "  보안 분석 시 다음 서브에이전트 구성을 사용:", "delay": 200 },
+        { "text": "  - auth-analyzer: 인증/인가 로직 분석", "delay": 200 },
+        { "text": "  - input-validator: 입력값 검증 확인", "delay": 200 },
+        { "text": "  - crypto-checker: 암호화 구현 검토", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "✓ CLAUDE.md updated", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "서브에이전트의 주요 장점은?",
+      "options": [
+        "메모리 사용량 감소",
+        "병렬 작업으로 시간 절약",
+        "코드 자동 수정"
+      ],
+      "answer": 1
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "id": "15-slash-commands",
+  "chapter": 5,
+  "chapterTitle": "고급 기능",
+  "title": "슬래시 커맨드",
+  "description": "유용한 슬래시 커맨드들을 배웁니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 4,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 다양한 슬래시 커맨드를 지원합니다. 세션 관리부터 코드 리뷰까지, 자주 쓰는 기능을 빠르게 실행할 수 있어요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "/help", "correct": true },
+        { "label": "명령어 알려줘", "correct": false, "hint": "슬래시 커맨드 목록을 보려면 /help를 입력하세요." },
+        { "label": "help", "correct": false, "hint": "슬래시(/)로 시작해야 커맨드로 인식됩니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "사용 가능한 명령어:", "style": "info", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "  /help          - 도움말 표시", "delay": 200 },
+        { "text": "  /clear         - 대화 기록 초기화", "delay": 200 },
+        { "text": "  /compact       - 대화 요약 후 컨텍스트 압축", "delay": 200 },
+        { "text": "  /cost          - 현재 세션 비용 확인", "delay": 200 },
+        { "text": "  /init          - CLAUDE.md 프로젝트 설정 생성", "delay": 200 },
+        { "text": "  /review        - 코드 리뷰 요청", "delay": 200 },
+        { "text": "  /memory        - 메모리 관련 명령어", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "  커스텀 Skills도 /로 실행할 수 있습니다.", "style": "dim", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "자주 쓰는 슬래시 커맨드",
+      "body": "/clear는 대화를 새로 시작할 때, /compact는 긴 대화를 압축할 때, /cost는 API 사용량을 확인할 때 유용합니다. /init으로 프로젝트 설정을 만들면 Claude가 프로젝트를 더 잘 이해합니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "/cost", "correct": true },
+        { "label": "비용 얼마야?", "correct": false, "hint": "비용 확인은 /cost 커맨드로 할 수 있어요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "현재 세션 비용:", "style": "info", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "  입력 토큰:   12,847  ($0.038)", "delay": 300 },
+        { "text": "  출력 토큰:    3,241  ($0.049)", "delay": 300 },
+        { "text": "  캐시 읽기:   45,000  ($0.005)", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "  총 비용: $0.092", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "이번엔 /review로 코드 리뷰를 요청해볼까요? 특정 파일이나 최근 변경사항을 리뷰받을 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "/review", "correct": true },
+        { "label": "코드 리뷰해줘", "correct": false, "hint": "/review 커맨드를 사용하면 구조화된 코드 리뷰를 받을 수 있어요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "코드 리뷰를 시작합니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "최근 변경된 파일을 분석 중...", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 200 },
+        { "text": "=== 코드 리뷰 ===", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "[양호] 전반적인 코드 구조가 깔끔합니다", "style": "success", "delay": 300 },
+        { "text": "[제안] api.js:45 - 에러 핸들링 추가 권장", "delay": 300 },
+        { "text": "[제안] utils.js:12 - 함수명을 더 명확하게 변경 권장", "delay": 300 },
+        { "text": "[경고] config.js:3 - 하드코딩된 값 발견, 환경변수 사용 권장", "style": "error", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "커스텀 슬래시 커맨드 (Skills)",
+      "body": "자주 사용하는 워크플로우를 커스텀 슬래시 커맨드로 만들 수 있습니다. 예를 들어 /deploy, /test-all 같은 프로젝트별 명령어를 정의할 수 있습니다. 이것을 Skills라고 부릅니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "대화가 길어져서 컨텍스트를 압축하고 싶을 때 사용하는 커맨드는?",
+      "options": [
+        "/compact",
+        "/clear",
+        "/reset"
+      ],
+      "answer": 0
+    }
+  ]
+}

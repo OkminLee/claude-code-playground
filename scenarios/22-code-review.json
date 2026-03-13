@@ -1,0 +1,107 @@
+{
+  "id": "22-code-review",
+  "chapter": 7,
+  "chapterTitle": "Git & 코드 리뷰",
+  "title": "코드 리뷰 자동화",
+  "description": "Claude가 PR을 분석하고 코드 리뷰를 수행합니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "코드 리뷰는 시간이 많이 걸리는 작업입니다. Claude Code는 PR의 변경사항을 분석하고, 보안, 성능, 가독성 관점에서 리뷰 코멘트를 생성해줍니다."
+    },
+    {
+      "type": "guide",
+      "title": "Claude Code 리뷰 관점",
+      "body": "Claude Code는 다음 관점에서 코드를 검토합니다:\n\n• 보안: SQL 인젝션, XSS, 민감정보 노출\n• 성능: N+1 쿼리, 불필요한 연산, 메모리 누수\n• 가독성: 네이밍, 복잡도, 코드 중복\n• 버그: 엣지 케이스, 타입 오류, 로직 결함"
+    },
+    {
+      "type": "narration",
+      "text": "팀원이 올린 PR을 리뷰해보겠습니다. /review 명령어를 사용합니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "/review", "correct": true },
+        { "label": "PR #45 리뷰해줘", "correct": false, "hint": "자연어로도 가능하지만, '/review' 명령어가 더 체계적인 리뷰를 제공합니다." },
+        { "label": "gh pr view 45", "correct": false, "hint": "PR 내용 확인은 gh로 하지만, 리뷰는 '/review' 명령어를 사용하세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Fetching PR #45: 'Add user profile API'", "style": "info", "delay": 400 },
+        { "text": "● Analyzing 4 changed files...", "style": "info", "delay": 600 },
+        { "text": "", "delay": 400 },
+        { "text": "Code Review Results", "style": "info", "delay": 300 },
+        { "text": "════════════════════════════════════════", "style": "dim", "delay": 200 }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "🔒 Security (1 issue)", "style": "error", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "src/api/profile.ts:42", "style": "dim", "delay": 300 },
+        { "text": "  const query = `SELECT * FROM users WHERE id = ${userId}`", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "  ⚠ SQL 인젝션 취약점이 있습니다.", "style": "error", "delay": 400 },
+        { "text": "  → Parameterized query를 사용하세요:", "style": "dim", "delay": 300 },
+        { "text": "  → db.query('SELECT * FROM users WHERE id = $1', [userId])", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "⚡ Performance (1 suggestion)", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "src/api/profile.ts:58-65", "style": "dim", "delay": 300 },
+        { "text": "  for (const user of users) {", "style": "dim", "delay": 200 },
+        { "text": "    const posts = await getPosts(user.id)", "style": "dim", "delay": 200 },
+        { "text": "  }", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "  💡 N+1 쿼리 패턴이 감지되었습니다.", "style": "info", "delay": 400 },
+        { "text": "  → Promise.all()로 병렬 처리하거나 JOIN을 고려하세요.", "style": "dim", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "리뷰 결과 활용",
+      "body": "리뷰 결과를 GitHub PR에 코멘트로 남길 수 있습니다:\n\n• '이 리뷰를 PR에 코멘트로 남겨줘'\n• '보안 이슈만 코멘트해줘'\n• '수정 제안 코드도 포함해서 남겨줘'\n\nRequest Changes나 Approve도 Claude가 대신 할 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "보안 이슈를 PR 코멘트로 남겨줘", "correct": true },
+        { "label": "gh pr review 45 --comment", "correct": false, "hint": "Claude에게 자연어로 요청하면 적절한 코멘트를 작성해줍니다." },
+        { "label": "LGTM", "correct": false, "hint": "보안 이슈가 있으니 먼저 코멘트를 남기는 것이 좋습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Running: gh pr review 45 --comment --body '...'", "style": "info", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "✓ Review comment added to PR #45", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Claude Code 리뷰에서 가장 우선적으로 확인하는 것은?",
+      "options": [
+        "코드 스타일",
+        "보안 취약점",
+        "주석 품질"
+      ],
+      "answer": 1
+    }
+  ]
+}

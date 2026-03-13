@@ -1,0 +1,107 @@
+{
+  "id": "11-debugging",
+  "chapter": 4,
+  "chapterTitle": "실전 개발 워크플로우",
+  "title": "버그 찾기 & 수정",
+  "description": "에러 메시지를 분석하고 Claude와 함께 버그를 수정합니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 6,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "개발 중 에러가 발생했나요? Claude Code에게 에러 메시지를 보여주면 관련 파일을 분석하고 원인을 찾아줍니다. 실제 디버깅 과정을 함께 해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "이 에러 좀 봐줘: TypeError: Cannot read property 'map' of undefined at UserList.jsx:15", "correct": true },
+        { "label": "에러가 났어", "correct": false, "hint": "에러 메시지를 함께 보여주면 Claude가 더 정확하게 분석할 수 있어요." },
+        { "label": "UserList.jsx 파일 열어줘", "correct": false, "hint": "파일을 열어달라고 할 수도 있지만, 에러 메시지를 직접 보여주면 더 효율적입니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "에러를 분석해볼게요. 먼저 해당 파일을 확인하겠습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Read UserList.jsx", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 300 },
+        { "text": "문제를 찾았습니다.", "style": "info", "delay": 500 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "에러 메시지는 최대한 상세하게",
+      "body": "스택 트레이스, 에러 타입, 발생 위치를 모두 포함하면 Claude가 더 정확하게 원인을 파악할 수 있습니다. 터미널 에러를 그대로 복사해서 붙여넣어도 됩니다."
+    },
+    {
+      "type": "narration",
+      "text": "Claude가 파일을 읽고 원인을 분석했습니다. 이제 분석 결과와 수정 방법을 제안합니다."
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "원인 분석:", "style": "info", "delay": 300 },
+        { "text": "- UserList 컴포넌트가 users prop을 받기 전에 렌더링됨", "delay": 400 },
+        { "text": "- users가 undefined일 때 .map()을 호출해서 에러 발생", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "수정 제안:", "style": "info", "delay": 300 },
+        { "text": "- users의 기본값을 빈 배열로 설정", "delay": 400 },
+        { "text": "- 또는 옵셔널 체이닝 사용: users?.map()", "delay": 400 }
+      ]
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "옵셔널 체이닝으로 수정해줘", "correct": true },
+        { "label": "됐어", "correct": false, "hint": "Claude가 제안한 수정을 적용해봐요. 직접 수정을 요청할 수 있습니다." },
+        { "label": "다른 방법은?", "correct": false, "hint": "좋은 질문이지만, 먼저 제안된 방법 중 하나를 적용해봐요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "UserList.jsx를 수정하겠습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Edit UserList.jsx", "style": "dim", "delay": 500 },
+        { "text": "  - users.map(user => ...)  ", "style": "error", "delay": 300 },
+        { "text": "  + users?.map(user => ...) || <EmptyState />", "style": "success", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "수정 완료! 앱을 다시 실행해서 확인해보세요.", "style": "success", "delay": 500 }
+      ]
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "npm run dev 실행해서 확인해줘", "correct": true },
+        { "label": "감사합니다", "correct": false, "hint": "수정 후에는 테스트를 해보는 게 좋아요. Claude에게 확인을 요청해보세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Bash npm run dev", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "  VITE v5.0.0  ready in 324 ms", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "  ➜  Local:   http://localhost:5173/", "style": "info", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "에러 없이 정상 실행됩니다!", "style": "success", "delay": 500 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Claude Code로 버그를 효과적으로 디버깅하려면?",
+      "options": [
+        "에러 메시지와 발생 위치를 함께 알려준다",
+        "'에러 났어'라고만 말한다",
+        "직접 코드를 다 읽어본 후 질문한다"
+      ],
+      "answer": 0
+    }
+  ]
+}

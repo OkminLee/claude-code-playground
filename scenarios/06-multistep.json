@@ -1,0 +1,110 @@
+{
+  "id": "06-multistep",
+  "chapter": 2,
+  "chapterTitle": "도구 시스템 이해",
+  "title": "멀티스텝 작업",
+  "description": "복잡한 작업을 하나의 요청으로 처리합니다",
+  "difficulty": 2,
+  "audience": "all",
+  "estimatedMinutes": 6,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code의 진정한 힘은 여러 도구를 조합해 복잡한 작업을 자동화하는 것입니다. 하나의 요청으로 여러 단계를 처리할 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "이 프로젝트의 TODO 주석을 찾아서 issues.md로 정리해줘", "correct": true },
+        { "label": "grep TODO", "correct": false, "hint": "Claude에게 전체 작업을 맡기세요. 검색부터 정리까지 알아서 합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Grep: pattern=\"TODO\" path=\"src\"", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 300 },
+        { "text": "TODO 주석 5개를 찾았습니다. 정리 중...", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "● Reading file: src/routes/users.ts", "style": "dim", "delay": 400 },
+        { "text": "● Reading file: src/utils/validation.ts", "style": "dim", "delay": 400 },
+        { "text": "● Reading file: src/middleware/auth.ts", "style": "dim", "delay": 400 }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "● Writing file: issues.md", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 400 },
+        { "text": "issues.md 파일을 생성했습니다:", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "# 해결해야 할 TODO 목록", "style": "info", "delay": 300 },
+        { "text": "", "delay": 100 },
+        { "text": "## 높은 우선순위", "delay": 200 },
+        { "text": "- [ ] 인증 토큰 만료 처리 (auth.ts:42)", "delay": 200 },
+        { "text": "- [ ] 입력값 검증 강화 (validation.ts:15)", "delay": 200 },
+        { "text": "", "delay": 100 },
+        { "text": "## 개선사항", "delay": 200 },
+        { "text": "- [ ] 사용자 목록 페이지네이션 (users.ts:28)", "delay": 200 },
+        { "text": "- [ ] 에러 메시지 다국어 지원 (users.ts:56)", "delay": 200 },
+        { "text": "- [ ] 캐싱 레이어 추가 (users.ts:89)", "delay": 200 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "멀티스텝 작업의 흐름",
+      "body": "Claude는 복잡한 요청을 단계별로 분해합니다:\n\n1. Grep으로 TODO 검색\n2. Read로 각 파일의 컨텍스트 파악\n3. 우선순위 분류 (코드 분석 기반)\n4. Write로 정리된 문서 생성\n\n각 단계가 터미널에 표시되어 진행 상황을 확인할 수 있습니다."
+    },
+    {
+      "type": "narration",
+      "text": "더 복잡한 작업도 가능합니다. 리팩토링을 요청해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "handleError 함수를 async/await 패턴으로 리팩토링하고 테스트도 업데이트해줘", "correct": true },
+        { "label": "handleError 함수 보여줘", "correct": false, "hint": "전체 작업을 한 번에 요청할 수 있습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Grep: pattern=\"handleError\" path=\"src\"", "style": "dim", "delay": 500 },
+        { "text": "● Reading file: src/utils/errors.ts", "style": "dim", "delay": 400 },
+        { "text": "● Reading file: src/utils/errors.test.ts", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "리팩토링 계획:", "delay": 400 },
+        { "text": "1. handleError를 async 함수로 변환", "delay": 300 },
+        { "text": "2. 호출부 4곳 업데이트", "delay": 300 },
+        { "text": "3. 테스트 케이스 수정", "delay": 300 },
+        { "text": "", "delay": 400 },
+        { "text": "● Editing file: src/utils/errors.ts", "style": "dim", "delay": 500 },
+        { "text": "● Editing file: src/routes/users.ts", "style": "dim", "delay": 400 },
+        { "text": "● Editing file: src/routes/posts.ts", "style": "dim", "delay": 400 },
+        { "text": "● Editing file: src/utils/errors.test.ts", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "4개 파일을 수정했습니다.", "style": "success", "delay": 500 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "작업 범위 지정",
+      "body": "복잡한 작업을 요청할 때는 범위를 명확히 하세요:\n\n좋은 예: \"src/utils 폴더의 에러 핸들링만 리팩토링해줘\"\n\n범위가 넓으면 Claude가 먼저 계획을 설명하고 확인을 요청합니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "멀티스텝 작업에서 Claude가 하지 않는 것은?",
+      "options": [
+        "사용자 확인 없이 외부 API 호출",
+        "여러 파일을 순차적으로 수정",
+        "작업 계획을 먼저 설명"
+      ],
+      "answer": 0
+    }
+  ]
+}

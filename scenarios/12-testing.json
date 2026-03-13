@@ -1,0 +1,116 @@
+{
+  "id": "12-testing",
+  "chapter": 4,
+  "chapterTitle": "실전 개발 워크플로우",
+  "title": "테스트 작성",
+  "description": "Claude와 함께 단위 테스트를 작성하고 실행합니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 6,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "테스트 코드 작성이 귀찮으셨나요? Claude Code에게 함수나 컴포넌트를 알려주면 적절한 테스트를 자동으로 작성해줍니다. 함께 해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "utils/calculator.js의 함수들에 대한 테스트를 작성해줘", "correct": true },
+        { "label": "테스트 작성해줘", "correct": false, "hint": "어떤 파일이나 함수를 테스트할지 명시해주면 더 정확한 테스트를 작성할 수 있어요." },
+        { "label": "Jest 설정해줘", "correct": false, "hint": "설정도 중요하지만, 먼저 테스트할 대상을 지정해볼까요?" }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "calculator.js를 분석해볼게요.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Read utils/calculator.js", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "4개의 함수를 발견했습니다: add, subtract, multiply, divide", "style": "info", "delay": 500 },
+        { "text": "각 함수에 대한 테스트를 작성하겠습니다.", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "테스트 프레임워크 자동 감지",
+      "body": "Claude는 프로젝트의 package.json을 확인해서 Jest, Vitest, Mocha 등 사용 중인 테스트 프레임워크에 맞는 테스트를 작성합니다. 설정 파일이 없으면 가장 적합한 것을 추천해주기도 합니다."
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Write utils/calculator.test.js", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "테스트 파일을 생성했습니다:", "style": "success", "delay": 400 },
+        { "text": "  - add: 기본 덧셈, 음수 처리, 소수점 처리", "delay": 300 },
+        { "text": "  - subtract: 기본 뺄셈, 음수 결과", "delay": 300 },
+        { "text": "  - multiply: 기본 곱셈, 0 곱하기", "delay": 300 },
+        { "text": "  - divide: 기본 나눗셈, 0으로 나누기 예외", "delay": 300 }
+      ]
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "테스트 실행해봐", "correct": true },
+        { "label": "파일 내용 보여줘", "correct": false, "hint": "파일 내용도 확인할 수 있지만, 먼저 테스트를 실행해서 결과를 봐볼까요?" }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Bash npm test -- calculator.test.js", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": " PASS  utils/calculator.test.js", "style": "success", "delay": 500 },
+        { "text": "  add", "delay": 200 },
+        { "text": "    ✓ adds two positive numbers (2 ms)", "style": "success", "delay": 200 },
+        { "text": "    ✓ handles negative numbers (1 ms)", "style": "success", "delay": 200 },
+        { "text": "  divide", "delay": 200 },
+        { "text": "    ✓ divides two numbers (1 ms)", "style": "success", "delay": 200 },
+        { "text": "    ✓ throws error on division by zero (3 ms)", "style": "success", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "Tests:  12 passed, 12 total", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "모든 테스트가 통과했네요! 이제 엣지 케이스를 추가해서 테스트 커버리지를 높여봅시다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "add 함수에 매우 큰 숫자, NaN, Infinity 케이스도 추가해줘", "correct": true },
+        { "label": "더 많은 테스트 추가해줘", "correct": false, "hint": "어떤 엣지 케이스를 추가할지 구체적으로 말해주면 더 좋아요." },
+        { "label": "끝났어", "correct": false, "hint": "테스트가 통과했지만, 엣지 케이스를 더 추가하면 코드가 더 견고해져요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "좋은 생각이에요! 엣지 케이스를 추가하겠습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Edit utils/calculator.test.js", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "추가된 테스트:", "style": "info", "delay": 300 },
+        { "text": "  - handles very large numbers (Number.MAX_SAFE_INTEGER)", "delay": 300 },
+        { "text": "  - returns NaN when adding NaN", "delay": 300 },
+        { "text": "  - handles Infinity correctly", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "테스트 다시 실행 중...", "style": "dim", "delay": 400 },
+        { "text": "Tests:  15 passed, 15 total", "style": "success", "delay": 500 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Claude에게 테스트 작성을 요청할 때 가장 효과적인 방법은?",
+      "options": [
+        "테스트할 파일이나 함수를 명시하고, 필요한 엣지 케이스도 언급한다",
+        "'테스트 작성해줘'라고만 말한다",
+        "테스트 코드 전체를 직접 작성해서 보여준다"
+      ],
+      "answer": 0
+    }
+  ]
+}

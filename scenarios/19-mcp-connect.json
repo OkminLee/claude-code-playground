@@ -1,0 +1,91 @@
+{
+  "id": "19-mcp-connect",
+  "chapter": 6,
+  "chapterTitle": "MCP & 확장",
+  "title": "MCP 서버 연결",
+  "description": "MCP 서버를 설정하고 GitHub 서버를 연결합니다",
+  "difficulty": 3,
+  "audience": "dev",
+  "estimatedMinutes": 6,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "MCP 서버를 Claude Code에 연결하는 방법을 알아보겠습니다. 가장 많이 사용되는 GitHub MCP 서버를 예시로 설정해볼게요."
+    },
+    {
+      "type": "guide",
+      "title": "MCP 서버 추가 방법",
+      "body": "MCP 서버를 추가하는 방법은 두 가지입니다:\n\n1. claude mcp add 명령어 사용\n2. .claude/settings.json 직접 편집\n\n명령어를 사용하면 더 간편하게 설정할 수 있습니다."
+    },
+    {
+      "type": "narration",
+      "text": "GitHub MCP 서버를 추가해보겠습니다. 이 서버를 통해 Claude가 직접 이슈를 만들고, PR을 생성하고, 코드를 검색할 수 있게 됩니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "claude mcp add github", "correct": true },
+        { "label": "npm install @mcp/github", "correct": false, "hint": "MCP 서버는 npm이 아닌 claude mcp add 명령어로 추가합니다." },
+        { "label": "claude install github", "correct": false, "hint": "MCP 서버 추가는 'claude mcp add' 명령어를 사용합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "Adding MCP server: github", "style": "info", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "? GitHub Personal Access Token: ********", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 200 },
+        { "text": "Validating token...", "style": "dim", "delay": 800 },
+        { "text": "✓ Token validated successfully", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "✓ MCP server 'github' added to .claude/settings.json", "style": "success", "delay": 400 },
+        { "text": "  Run 'claude' to start using GitHub tools", "style": "dim", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "settings.json 구조",
+      "body": "MCP 설정은 .claude/settings.json에 저장됩니다:\n\n{\n  \"mcpServers\": {\n    \"github\": {\n      \"command\": \"npx\",\n      \"args\": [\"@anthropic-ai/mcp-github\"],\n      \"env\": {\n        \"GITHUB_TOKEN\": \"ghp_xxx\"\n      }\n    }\n  }\n}\n\n각 서버는 실행 명령과 환경변수를 포함합니다."
+    },
+    {
+      "type": "narration",
+      "text": "이제 Claude Code를 실행하고 GitHub 도구를 사용해보겠습니다. Claude에게 이슈 목록을 요청해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "이 저장소의 열린 이슈 목록을 보여줘", "correct": true },
+        { "label": "gh issue list", "correct": false, "hint": "Claude에게 자연어로 요청하면 MCP 도구를 사용해 이슈를 가져옵니다." },
+        { "label": "/github issues", "correct": false, "hint": "슬래시 명령어가 아닌 자연어로 요청하세요. Claude가 MCP 도구를 선택합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Using tool: github.list_issues", "style": "info", "delay": 400 },
+        { "text": "  repo: my-project, state: open", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 400 },
+        { "text": "열린 이슈 3개를 찾았습니다:", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "#42 - 로그인 페이지 CSS 깨짐 (bug)", "delay": 300 },
+        { "text": "#38 - 다크모드 지원 요청 (enhancement)", "delay": 300 },
+        { "text": "#35 - API 응답 속도 개선 (performance)", "delay": 300 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "MCP 서버를 추가하는 올바른 명령어는?",
+      "options": [
+        "npm install @mcp/서버명",
+        "claude mcp add 서버명",
+        "claude plugin install 서버명"
+      ],
+      "answer": 1
+    }
+  ]
+}

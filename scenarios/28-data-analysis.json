@@ -1,0 +1,134 @@
+{
+  "id": "28-data-analysis",
+  "chapter": 9,
+  "chapterTitle": "비개발자 활용",
+  "title": "데이터 분석",
+  "description": "CSV 데이터를 분석하고 인사이트를 도출합니다",
+  "difficulty": 2,
+  "audience": "non-dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "엑셀 파일이나 CSV 데이터가 있지만 어디서부터 분석해야 할지 막막하신가요? Claude에게 데이터를 보여주고 분석을 요청해보세요. 복잡한 도구 없이도 인사이트를 얻을 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Data",
+      "choices": [
+        { "label": "claude", "correct": true },
+        { "label": "excel sales.csv", "correct": false, "hint": "Claude Code로 데이터를 분석해보세요. 터미널에서 'claude'를 입력합니다." },
+        { "label": "python analysis.py", "correct": false, "hint": "코드를 직접 작성하지 않아도 됩니다. Claude가 분석해줍니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "╭────────────────────────────────────────╮", "style": "dim", "delay": 200 },
+        { "text": "│        Welcome to Claude Code!         │", "style": "info", "delay": 200 },
+        { "text": "╰────────────────────────────────────────╯", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "claude > _", "style": "info", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "먼저 데이터 파일의 구조와 내용을 파악하도록 요청합니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Data",
+      "choices": [
+        { "label": "sales_2024.csv 파일을 분석해줘. 데이터 구조와 기본 통계를 알려줘", "correct": true },
+        { "label": "CSV 분석해줘", "correct": false, "hint": "어떤 파일인지 명확히 지정해주세요." },
+        { "label": "sales_2024.csv 열어줘", "correct": false, "hint": "단순히 열기보다는 분석을 요청하면 더 유용한 정보를 얻을 수 있습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "sales_2024.csv 파일을 분석했습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "## 데이터 구조", "style": "info", "delay": 300 },
+        { "text": "- 총 1,247개 행 (거래 건수)", "delay": 300 },
+        { "text": "- 컬럼: 날짜, 제품명, 카테고리, 수량, 단가, 총액, 지역, 담당자", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "## 기본 통계", "style": "info", "delay": 300 },
+        { "text": "- 기간: 2024-01-01 ~ 2024-06-30", "delay": 300 },
+        { "text": "- 총 매출: 4.2억원", "delay": 300 },
+        { "text": "- 평균 거래액: 337,000원", "delay": 300 },
+        { "text": "- 가장 많이 팔린 카테고리: 전자제품 (42%)", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "데이터 분석의 첫 단계",
+      "body": "데이터 분석 전, 전체 구조를 파악하는 것이 중요합니다. 행/열 수, 데이터 타입, 결측치 여부 등을 먼저 확인하면 이후 분석 방향을 잡기 쉽습니다."
+    },
+    {
+      "type": "narration",
+      "text": "이제 트렌드와 패턴을 찾아봅시다. Claude에게 구체적인 분석 질문을 해보세요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Data",
+      "choices": [
+        { "label": "월별 매출 트렌드와 가장 성장한 카테고리를 분석해줘. 특이사항이 있으면 알려줘", "correct": true },
+        { "label": "트렌드 보여줘", "correct": false, "hint": "어떤 트렌드인지, 어떤 관점에서 볼지 구체적으로 요청하세요." },
+        { "label": "그래프 그려줘", "correct": false, "hint": "먼저 분석을 요청하고, 시각화는 그 다음 단계로 진행하면 좋습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "## 월별 매출 트렌드", "style": "info", "delay": 400 },
+        { "text": "", "delay": 100 },
+        { "text": "1월: 5,200만원 → 6월: 8,900만원 (71% 성장)", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "## 카테고리별 성장률", "style": "info", "delay": 300 },
+        { "text": "1. 가전제품: +124% (특히 에어컨 판매 급증)", "style": "success", "delay": 400 },
+        { "text": "2. 전자제품: +45%", "delay": 300 },
+        { "text": "3. 생활용품: +12%", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "## 특이사항", "style": "info", "delay": 300 },
+        { "text": "- 5월 셋째 주 매출 급등 (전주 대비 +340%)", "delay": 400 },
+        { "text": "  → 프로모션 기간과 일치, 재고 소진 우려", "style": "dim", "delay": 400 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "분석 결과를 시각화하면 발표나 보고에 활용하기 좋습니다. Claude에게 차트 코드 생성을 요청해보세요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Data",
+      "choices": [
+        { "label": "월별 매출 추이를 보여주는 막대 차트를 만들어줘. HTML 파일로 저장해줘", "correct": true },
+        { "label": "차트 만들어줘", "correct": false, "hint": "어떤 데이터를 어떤 형태의 차트로 보여줄지 구체적으로 요청하세요." },
+        { "label": "Excel로 그래프 그려줘", "correct": false, "hint": "Claude는 HTML/JavaScript 차트를 생성합니다. 브라우저에서 바로 확인할 수 있어요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Chart.js를 사용한 막대 차트를 생성했습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "sales-chart.html 파일을 생성했습니다.", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "브라우저에서 열어 확인하세요:", "delay": 300 },
+        { "text": "open sales-chart.html", "style": "info", "delay": 300 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "데이터 분석 요청시 효과적인 방법은?",
+      "options": [
+        "파일 지정 후 구체적인 분석 관점 제시",
+        "분석해줘라고만 요청",
+        "데이터를 직접 복사해서 붙여넣기"
+      ],
+      "answer": 0
+    }
+  ]
+}

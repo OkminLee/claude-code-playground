@@ -1,0 +1,100 @@
+{
+  "id": "21-pr-automation",
+  "chapter": 7,
+  "chapterTitle": "Git & 코드 리뷰",
+  "title": "PR 생성 자동화",
+  "description": "Claude가 변경사항을 분석하고 PR을 생성합니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "코드 변경을 마쳤다면 PR을 만들 차례입니다. Claude Code는 변경사항을 분석해 적절한 PR 제목과 설명을 자동으로 작성해줍니다."
+    },
+    {
+      "type": "guide",
+      "title": "PR 생성 워크플로우",
+      "body": "Claude Code의 PR 생성 과정:\n\n1. git diff로 변경사항 분석\n2. 커밋 히스토리 확인\n3. PR 제목/설명 초안 작성\n4. gh CLI로 PR 생성\n\n개발자는 결과를 검토하고 승인만 하면 됩니다."
+    },
+    {
+      "type": "narration",
+      "text": "로그인 기능을 구현한 후 PR을 만들어달라고 요청해보겠습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "지금까지 작업한 내용으로 PR 만들어줘", "correct": true },
+        { "label": "gh pr create", "correct": false, "hint": "Claude에게 자연어로 요청하세요. 변경사항 분석과 PR 설명까지 자동으로 처리합니다." },
+        { "label": "/pr create", "correct": false, "hint": "슬래시 명령어보다 자연어로 요청하는 것이 더 자세한 PR을 만들어줍니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Reading: git diff HEAD~3", "style": "info", "delay": 400 },
+        { "text": "● Reading: git log --oneline -5", "style": "info", "delay": 300 },
+        { "text": "", "delay": 400 },
+        { "text": "변경사항을 분석했습니다:", "delay": 300 },
+        { "text": "  • src/auth/login.ts (+142 lines)", "style": "dim", "delay": 250 },
+        { "text": "  • src/components/LoginForm.tsx (+87 lines)", "style": "dim", "delay": 250 },
+        { "text": "  • tests/auth.test.ts (+45 lines)", "style": "dim", "delay": 250 },
+        { "text": "", "delay": 300 },
+        { "text": "PR 초안을 작성하겠습니다...", "style": "dim", "delay": 500 }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "──────────────────────────────────────", "style": "dim", "delay": 200 },
+        { "text": "Title: feat: 소셜 로그인 기능 구현", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "## Summary", "delay": 300 },
+        { "text": "- Google, GitHub OAuth 로그인 지원", "delay": 250 },
+        { "text": "- JWT 토큰 기반 세션 관리", "delay": 250 },
+        { "text": "- 로그인 폼 UI 컴포넌트 추가", "delay": 250 },
+        { "text": "", "delay": 200 },
+        { "text": "## Test Plan", "delay": 300 },
+        { "text": "- [x] 단위 테스트 추가 (auth.test.ts)", "delay": 250 },
+        { "text": "- [ ] E2E 테스트 필요", "delay": 250 },
+        { "text": "──────────────────────────────────────", "style": "dim", "delay": 200 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "PR 초안이 마음에 드시나요? 승인하면 GitHub에 PR이 생성됩니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "좋아, PR 생성해줘", "correct": true },
+        { "label": "제목을 'Add login feature'로 바꿔줘", "correct": false, "hint": "수정 요청도 가능합니다. 하지만 먼저 기본 흐름을 확인해볼까요?" },
+        { "label": "취소", "correct": false, "hint": "PR 생성 과정을 끝까지 확인해보세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Running: gh pr create --title 'feat: 소셜 로그인 기능 구현' --body '...'", "style": "info", "delay": 500 },
+        { "text": "", "delay": 400 },
+        { "text": "✓ PR #47 created successfully", "style": "success", "delay": 400 },
+        { "text": "  https://github.com/my-org/my-project/pull/47", "style": "dim", "delay": 300 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Claude Code가 PR을 만들 때 사용하는 CLI 도구는?",
+      "options": [
+        "git pr",
+        "gh (GitHub CLI)",
+        "hub"
+      ],
+      "answer": 1
+    }
+  ]
+}

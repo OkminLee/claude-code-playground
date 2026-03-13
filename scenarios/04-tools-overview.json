@@ -1,0 +1,117 @@
+{
+  "id": "04-tools-overview",
+  "chapter": 2,
+  "chapterTitle": "도구 시스템 이해",
+  "title": "Claude가 사용하는 도구들",
+  "description": "Claude Code의 핵심 도구들을 살펴봅니다",
+  "difficulty": 1,
+  "audience": "all",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 다양한 '도구(Tools)'를 사용해 작업을 수행합니다. 파일 조작, 검색, 명령어 실행 등 각 도구는 고유한 역할이 있습니다."
+    },
+    {
+      "type": "guide",
+      "title": "핵심 도구 6가지",
+      "body": "**Read**: 파일 내용 읽기\n**Edit**: 파일 일부 수정 (diff 방식)\n**Write**: 새 파일 생성 또는 전체 덮어쓰기\n**Bash**: 터미널 명령어 실행\n**Grep**: 파일 내용 검색 (정규식 지원)\n**Glob**: 파일명 패턴 검색"
+    },
+    {
+      "type": "narration",
+      "text": "실제로 도구가 어떻게 사용되는지 볼까요? 프로젝트에서 특정 함수를 찾아달라고 요청해보세요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "handleError 함수가 어디에 정의되어 있어?", "correct": true },
+        { "label": "grep -r handleError .", "correct": false, "hint": "Claude에게 자연어로 물어보세요. 알아서 적절한 도구를 선택합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Grep: pattern=\"handleError\" path=\".\"", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "handleError 함수를 찾았습니다:", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "src/utils/errors.ts:15", "style": "info", "delay": 300 },
+        { "text": "  export function handleError(err: Error) { ... }", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "이 함수는 다음 파일들에서 사용됩니다:", "delay": 400 },
+        { "text": "  - src/routes/users.ts (3곳)", "delay": 200 },
+        { "text": "  - src/routes/posts.ts (2곳)", "delay": 200 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "Grep vs Glob",
+      "body": "**Grep**은 파일 '내용'을 검색합니다. 함수명, 변수명, 문자열 등을 찾을 때 사용합니다.\n\n**Glob**은 파일 '이름'을 검색합니다. '*.ts', 'test/**/*.spec.js' 같은 패턴으로 파일을 찾습니다."
+    },
+    {
+      "type": "narration",
+      "text": "이번에는 테스트 파일들을 찾아볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "테스트 파일들 목록 보여줘", "correct": true },
+        { "label": "find . -name '*.test.ts'", "correct": false, "hint": "Claude가 알아서 Glob 도구를 사용합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Glob: pattern=\"**/*.test.ts\"", "style": "dim", "delay": 500 },
+        { "text": "● Glob: pattern=\"**/*.spec.ts\"", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "테스트 파일 4개를 찾았습니다:", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "  src/utils/errors.test.ts", "delay": 200 },
+        { "text": "  src/routes/users.test.ts", "delay": 200 },
+        { "text": "  src/routes/posts.test.ts", "delay": 200 },
+        { "text": "  tests/integration/api.spec.ts", "delay": 200 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "Bash 도구로 터미널 명령어도 실행할 수 있습니다. 테스트를 실행해볼까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "테스트 실행해줘", "correct": true },
+        { "label": "npm test", "correct": false, "hint": "Claude에게 자연어로 요청하면 적절한 명령어를 실행합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "● Bash: npm test", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 400 },
+        { "text": "PASS  src/utils/errors.test.ts", "style": "success", "delay": 300 },
+        { "text": "PASS  src/routes/users.test.ts", "style": "success", "delay": 300 },
+        { "text": "PASS  src/routes/posts.test.ts", "style": "success", "delay": 300 },
+        { "text": "PASS  tests/integration/api.spec.ts", "style": "success", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "Tests: 4 passed, 4 total", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "파일 내용에서 특정 텍스트를 찾을 때 Claude가 사용하는 도구는?",
+      "options": [
+        "Grep",
+        "Glob",
+        "Find"
+      ],
+      "answer": 0
+    }
+  ]
+}

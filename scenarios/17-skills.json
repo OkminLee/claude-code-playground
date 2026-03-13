@@ -1,0 +1,118 @@
+{
+  "id": "17-skills",
+  "chapter": 5,
+  "chapterTitle": "고급 기능",
+  "title": "Skills",
+  "description": "재사용 가능한 프롬프트를 만들고 활용합니다",
+  "difficulty": 3,
+  "audience": "dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Skills는 자주 사용하는 프롬프트를 슬래시 커맨드로 만든 것입니다. 복잡한 작업을 한 번 정의해두면 팀 전체가 재사용할 수 있어요."
+    },
+    {
+      "type": "guide",
+      "title": "Skills란?",
+      "body": "Skill은 재사용 가능한 프롬프트 템플릿입니다. 예를 들어 /review-security, /add-tests, /deploy-staging 같은 커스텀 명령어를 만들 수 있습니다. .claude/skills/ 폴더에 마크다운 파일로 정의합니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "/skills", "correct": true },
+        { "label": "skills 보여줘", "correct": false, "hint": "슬래시 커맨드로 Skills 목록을 확인할 수 있어요." },
+        { "label": "커스텀 명령어 만들어줘", "correct": false, "hint": "먼저 /skills로 현재 사용 가능한 Skills를 확인해봐요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "사용 가능한 Skills:", "style": "info", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "  프로젝트 Skills (.claude/skills/):", "delay": 300 },
+        { "text": "    /review-pr     - PR 리뷰 가이드라인에 따른 코드 리뷰", "delay": 200 },
+        { "text": "    /add-tests     - 테스트 컨벤션에 맞는 테스트 작성", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "  글로벌 Skills (~/.claude/skills/):", "delay": 300 },
+        { "text": "    /commit        - 커밋 메시지 컨벤션에 맞게 커밋", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "새 Skill을 만들려면 .claude/skills/에 .md 파일을 추가하세요.", "style": "dim", "delay": 400 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "이제 커스텀 Skill을 직접 만들어봅시다. API 엔드포인트를 추가하는 Skill을 정의해볼게요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "새 API 엔드포인트를 추가하는 add-endpoint Skill을 만들어줘. 라우터, 컨트롤러, 테스트를 함께 생성하도록", "correct": true },
+        { "label": "Skill 만들어줘", "correct": false, "hint": "어떤 작업을 하는 Skill인지 구체적으로 설명해주세요." },
+        { "label": "API 추가 명령어 만들어줘", "correct": false, "hint": "Skill이 수행할 작업의 범위와 규칙을 상세히 알려주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "add-endpoint Skill을 생성합니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Write .claude/skills/add-endpoint.md", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "Skill 파일 내용:", "style": "info", "delay": 300 },
+        { "text": "  ---", "style": "dim", "delay": 200 },
+        { "text": "  name: add-endpoint", "style": "dim", "delay": 200 },
+        { "text": "  description: API 엔드포인트 추가 (라우터+컨트롤러+테스트)", "style": "dim", "delay": 200 },
+        { "text": "  arguments: [endpoint_path, http_method]", "style": "dim", "delay": 200 },
+        { "text": "  ---", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "  [프롬프트 템플릿 작성됨]", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "/add-endpoint 명령어가 생성되었습니다!", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "Skill 파일 구조",
+      "body": "Skill은 마크다운 파일로 작성합니다:\n\n- YAML 프론트매터: name, description, arguments 정의\n- 본문: Claude에게 전달될 프롬프트 템플릿\n\n인자는 {{argument_name}} 형식으로 템플릿에 삽입됩니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "/add-endpoint /api/users GET", "correct": true },
+        { "label": "API 엔드포인트 추가해줘", "correct": false, "hint": "방금 만든 Skill을 사용해봐요! /add-endpoint 명령어로 실행할 수 있어요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "add-endpoint Skill 실행 중...", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "엔드포인트: GET /api/users", "style": "info", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "Write src/routes/users.js", "style": "dim", "delay": 400 },
+        { "text": "Write src/controllers/usersController.js", "style": "dim", "delay": 400 },
+        { "text": "Write tests/users.test.js", "style": "dim", "delay": 400 },
+        { "text": "Edit src/routes/index.js (라우터 등록)", "style": "dim", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "GET /api/users 엔드포인트가 생성되었습니다!", "style": "success", "delay": 500 },
+        { "text": "  - 라우터: src/routes/users.js", "delay": 300 },
+        { "text": "  - 컨트롤러: src/controllers/usersController.js", "delay": 300 },
+        { "text": "  - 테스트: tests/users.test.js", "delay": 300 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Skills의 주요 장점은?",
+      "options": [
+        "복잡한 작업을 템플릿화해서 팀 전체가 일관되게 사용할 수 있다",
+        "코드 실행 속도가 빨라진다",
+        "인터넷 없이도 Claude를 사용할 수 있다"
+      ],
+      "answer": 0
+    }
+  ]
+}

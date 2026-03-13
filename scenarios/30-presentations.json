@@ -1,0 +1,142 @@
+{
+  "id": "30-presentations",
+  "chapter": 9,
+  "chapterTitle": "비개발자 활용",
+  "title": "프레젠테이션 제작",
+  "description": "HTML 슬라이드와 발표 자료를 생성합니다",
+  "difficulty": 2,
+  "audience": "non-dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "PowerPoint 대신 Claude로 프레젠테이션을 만들어보세요. HTML 기반 슬라이드는 브라우저에서 바로 실행되고, 공유와 수정이 쉽습니다. 디자인 감각이 없어도 깔끔한 발표 자료를 만들 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Presentations",
+      "choices": [
+        { "label": "claude", "correct": true },
+        { "label": "powerpoint", "correct": false, "hint": "Claude Code로 HTML 슬라이드를 만들어보세요. 'claude'를 입력합니다." },
+        { "label": "keynote", "correct": false, "hint": "Claude가 만드는 HTML 슬라이드를 사용해보세요. 'claude'를 입력합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "╭────────────────────────────────────────╮", "style": "dim", "delay": 200 },
+        { "text": "│        Welcome to Claude Code!         │", "style": "info", "delay": 200 },
+        { "text": "╰────────────────────────────────────────╯", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "claude > _", "style": "info", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "발표 주제와 내용을 설명하고 슬라이드 생성을 요청합니다. 슬라이드 수와 스타일도 지정할 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Presentations",
+      "choices": [
+        { "label": "'2024 하반기 사업 계획' 발표 슬라이드를 만들어줘. 10장 분량, 미니멀한 디자인으로. 목표, 전략, 예산, 일정을 포함해줘", "correct": true },
+        { "label": "PPT 만들어줘", "correct": false, "hint": "주제, 분량, 포함할 내용 등을 구체적으로 알려주세요." },
+        { "label": "발표 자료 필요해", "correct": false, "hint": "어떤 발표인지, 어떤 스타일을 원하는지 설명해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Reveal.js 기반 프레젠테이션을 생성했습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "슬라이드 구성:", "style": "info", "delay": 300 },
+        { "text": "1. 타이틀: 2024 하반기 사업 계획", "delay": 300 },
+        { "text": "2. 목차", "delay": 200 },
+        { "text": "3. 상반기 성과 요약", "delay": 200 },
+        { "text": "4-5. 하반기 핵심 목표", "delay": 200 },
+        { "text": "6-7. 실행 전략", "delay": 200 },
+        { "text": "8. 예산 계획", "delay": 200 },
+        { "text": "9. 추진 일정", "delay": 200 },
+        { "text": "10. Q&A", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "presentation.html 파일을 생성했습니다.", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "HTML 슬라이드의 장점",
+      "body": "1) 브라우저만 있으면 어디서든 발표 가능 2) URL로 쉽게 공유 3) 반응형으로 모든 화면 크기 지원 4) 코드 수정으로 빠른 업데이트 5) 버전 관리 용이"
+    },
+    {
+      "type": "narration",
+      "text": "데이터를 차트로 시각화하여 슬라이드에 포함할 수도 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Presentations",
+      "choices": [
+        { "label": "sales_data.csv를 읽고, 매출 추이 차트가 포함된 슬라이드를 추가해줘. 3개년 비교 막대 차트로", "correct": true },
+        { "label": "차트 추가해줘", "correct": false, "hint": "어떤 데이터를 어떤 형태의 차트로 보여줄지 구체적으로 요청하세요." },
+        { "label": "그래프 넣어줘", "correct": false, "hint": "데이터 파일과 차트 유형을 명시해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "sales_data.csv 데이터를 분석했습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "3개년 매출 비교 막대 차트를 생성했습니다:", "style": "info", "delay": 400 },
+        { "text": "- 2022년: 12.3억원", "delay": 300 },
+        { "text": "- 2023년: 18.7억원 (+52%)", "style": "success", "delay": 300 },
+        { "text": "- 2024년: 24.1억원 (+29%)", "style": "success", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "Chart.js 기반 인터랙티브 차트로 슬라이드에 추가했습니다.", "delay": 400 },
+        { "text": "presentation.html 파일을 업데이트했습니다.", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "발표 노트도 함께 준비해달라고 요청할 수 있습니다. 각 슬라이드에 대한 설명을 추가해줍니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Presentations",
+      "choices": [
+        { "label": "각 슬라이드에 발표자 노트를 추가해줘. 핵심 메시지와 예상 질문도 포함해줘", "correct": true },
+        { "label": "노트 추가", "correct": false, "hint": "어떤 내용의 노트를 원하는지 구체적으로 요청하세요." },
+        { "label": "발표 연습 도와줘", "correct": false, "hint": "먼저 발표자 노트를 추가하는 것이 좋습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "각 슬라이드에 발표자 노트를 추가했습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "슬라이드 4 (하반기 목표) 노트:", "style": "info", "delay": 300 },
+        { "text": "- 핵심 메시지: 성장보다 수익성에 집중", "delay": 300 },
+        { "text": "- 강조 포인트: 시장 점유율 3위 → 2위 목표", "delay": 300 },
+        { "text": "- 예상 질문: 경쟁사 대비 차별화 전략은?", "delay": 300 },
+        { "text": "...", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "발표 모드(S키)에서 노트를 확인할 수 있습니다.", "delay": 400 },
+        { "text": "presentation.html 파일을 업데이트했습니다.", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "Reveal.js 발표 팁",
+      "body": "브라우저에서 presentation.html을 열고 S키를 누르면 발표자 모드가 열립니다. 현재 슬라이드, 다음 슬라이드, 노트, 타이머를 동시에 볼 수 있어 발표에 유용합니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "Claude로 프레젠테이션을 만들 때의 장점은?",
+      "options": [
+        "빠른 제작, 쉬운 공유, 데이터 시각화 자동화",
+        "PowerPoint보다 더 화려한 애니메이션",
+        "오프라인에서만 작동"
+      ],
+      "answer": 0
+    }
+  ]
+}

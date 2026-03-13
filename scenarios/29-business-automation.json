@@ -1,0 +1,145 @@
+{
+  "id": "29-business-automation",
+  "chapter": 9,
+  "chapterTitle": "비개발자 활용",
+  "title": "마케팅/HR/기획 자동화",
+  "description": "반복적인 업무 콘텐츠를 빠르게 생성합니다",
+  "difficulty": 1,
+  "audience": "non-dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "마케팅 카피, 채용 공고, 프로젝트 일정 등 반복적인 업무 문서를 Claude와 함께 빠르게 작성해봅시다. 코딩 지식 없이도 업무 효율을 높일 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Work",
+      "choices": [
+        { "label": "claude", "correct": true },
+        { "label": "open -a 'Google Docs'", "correct": false, "hint": "Claude Code를 사용해보세요. 터미널에서 'claude'를 입력합니다." },
+        { "label": "chatgpt", "correct": false, "hint": "Claude Code는 'claude' 명령어로 실행합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": "╭────────────────────────────────────────╮", "style": "dim", "delay": 200 },
+        { "text": "│        Welcome to Claude Code!         │", "style": "info", "delay": 200 },
+        { "text": "╰────────────────────────────────────────╯", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "claude > _", "style": "info", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "먼저 SNS 마케팅 카피를 작성해봅시다. 제품 정보와 타겟 고객을 알려주면 여러 버전을 생성해줍니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Work",
+      "choices": [
+        { "label": "신제품 무선 이어폰 'AirPod Max' 인스타그램 카피를 5개 버전으로 만들어줘. 20-30대 직장인 타겟, 노이즈 캔슬링과 긴 배터리가 강점이야", "correct": true },
+        { "label": "마케팅 카피 써줘", "correct": false, "hint": "제품명, 채널, 타겟 고객, 강점 등 구체적인 정보를 포함해주세요." },
+        { "label": "SNS 글 써줘", "correct": false, "hint": "어떤 제품의 어떤 플랫폼용인지 명확히 해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "인스타그램 카피 5개 버전을 작성했습니다:", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "버전 1 (감성형)", "style": "info", "delay": 300 },
+        { "text": "출근길 지하철 소음도, 퇴근 후 카페 음악도", "delay": 400 },
+        { "text": "내 귀에는 오직 내가 선택한 소리만 ✨", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "버전 2 (실용형)", "style": "info", "delay": 300 },
+        { "text": "36시간 배터리 + 업계 최고 노이즈 캔슬링", "delay": 400 },
+        { "text": "월요일부터 금요일까지 충전 걱정 없이", "delay": 400 },
+        { "text": "...", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "marketing-copy.md 파일로 저장했습니다.", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "마케팅 카피 요청 팁",
+      "body": "1) 제품/서비스 핵심 정보 2) 타겟 고객 특성 3) 채널 특성 (인스타/블로그/유튜브) 4) 원하는 톤 (유머/진지/감성) 5) 필요한 버전 수. 여러 버전을 받아서 테스트하는 것이 효과적입니다."
+    },
+    {
+      "type": "narration",
+      "text": "이번에는 채용 공고를 작성해봅시다. 직무 요건과 회사 문화를 전달하면 매력적인 공고를 만들어줍니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Work",
+      "choices": [
+        { "label": "시니어 백엔드 개발자 채용 공고를 작성해줘. 스타트업 분위기, 자율 출퇴근, Python/Django 경력 5년 이상 필요. 지원자가 매력을 느낄 수 있도록", "correct": true },
+        { "label": "채용 공고 써줘", "correct": false, "hint": "직무, 요구 사항, 회사 문화 등을 구체적으로 알려주세요." },
+        { "label": "개발자 뽑아야 해", "correct": false, "hint": "어떤 개발자인지, 어떤 회사인지 정보를 포함해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "채용 공고를 작성했습니다:", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "# 함께 성장할 시니어 백엔드 개발자를 찾습니다", "style": "info", "delay": 400 },
+        { "text": "", "delay": 100 },
+        { "text": "## 이런 분을 찾고 있어요", "delay": 300 },
+        { "text": "- Python/Django 실무 경력 5년 이상", "delay": 300 },
+        { "text": "- RESTful API 설계 및 최적화 경험", "delay": 300 },
+        { "text": "", "delay": 100 },
+        { "text": "## 이런 환경에서 일해요", "delay": 300 },
+        { "text": "- 자율 출퇴근 (코어타임 11-15시)", "delay": 300 },
+        { "text": "- 원격 근무 주 2회 가능", "delay": 300 },
+        { "text": "...", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "job-posting.md 파일로 저장했습니다.", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "프로젝트 일정 정리도 Claude에게 맡겨보세요. 복잡한 요구사항을 체계적으로 정리해줍니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/Work",
+      "choices": [
+        { "label": "신규 앱 런칭 프로젝트 일정을 정리해줘. 기획 2주, 디자인 3주, 개발 6주, QA 2주 예상. 마일스톤과 체크리스트 형태로 만들어줘", "correct": true },
+        { "label": "일정 정리해줘", "correct": false, "hint": "어떤 프로젝트인지, 각 단계의 예상 기간은 어떻게 되는지 알려주세요." },
+        { "label": "프로젝트 계획", "correct": false, "hint": "구체적인 단계와 기간을 포함해서 요청하세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "프로젝트 일정을 정리했습니다:", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "# 신규 앱 런칭 프로젝트 (총 13주)", "style": "info", "delay": 400 },
+        { "text": "", "delay": 100 },
+        { "text": "## Phase 1: 기획 (Week 1-2)", "delay": 300 },
+        { "text": "□ 요구사항 정의서 작성", "delay": 200 },
+        { "text": "□ 와이어프레임 초안", "delay": 200 },
+        { "text": "□ 기술 스택 확정", "delay": 200 },
+        { "text": "→ 마일스톤: PRD 승인", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 100 },
+        { "text": "## Phase 2: 디자인 (Week 3-5)", "delay": 300 },
+        { "text": "...", "style": "dim", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "project-timeline.md 파일로 저장했습니다.", "style": "success", "delay": 300 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "업무 자동화 요청시 가장 중요한 것은?",
+      "options": [
+        "구체적인 맥락과 요구사항 전달",
+        "가능한 짧게 요청하기",
+        "전문 용어를 많이 사용하기"
+      ],
+      "answer": 0
+    }
+  ]
+}

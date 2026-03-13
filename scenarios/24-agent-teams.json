@@ -1,0 +1,110 @@
+{
+  "id": "24-agent-teams",
+  "chapter": 8,
+  "chapterTitle": "에이전트 활용",
+  "title": "Agent Teams",
+  "description": "에이전트 팀을 구성해 대규모 작업을 수행합니다",
+  "difficulty": 3,
+  "audience": "dev",
+  "estimatedMinutes": 6,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Agent Teams는 서브에이전트의 확장 개념입니다. 여러 에이전트가 각자의 역할을 맡아 팀처럼 협업합니다. PR 리뷰, 대규모 리팩토링, 복잡한 디버깅에 특히 유용합니다."
+    },
+    {
+      "type": "guide",
+      "title": "Agent Teams vs Subagents",
+      "body": "Subagents: 단순 병렬 작업 분배\nAgent Teams: 역할 기반 협업\n\n예시 팀 구성:\n• Security Reviewer: 보안 취약점 분석\n• Performance Reviewer: 성능 이슈 검토\n• Pattern Reviewer: 코드 패턴/아키텍처 검토\n\n각 에이전트가 전문 영역에 집중해 더 깊은 분석이 가능합니다."
+    },
+    {
+      "type": "narration",
+      "text": "복잡한 PR을 팀으로 리뷰해보겠습니다. '에이전트 팀으로 리뷰해줘'라고 요청하면 됩니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "에이전트 팀으로 PR #52 리뷰해줘", "correct": true },
+        { "label": "/review --team", "correct": false, "hint": "자연어로 '에이전트 팀으로'라고 요청하면 팀이 구성됩니다." },
+        { "label": "PR #52 리뷰해줘", "correct": false, "hint": "'에이전트 팀으로'를 추가하면 여러 관점에서 더 깊은 리뷰가 가능합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "PR #52: 'Implement payment processing' (847 lines changed)", "style": "info", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "Agent Team을 구성합니다:", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "┌─────────────────────────────────────────┐", "style": "dim", "delay": 200 },
+        { "text": "│  🔒 Security Agent                       │", "style": "dim", "delay": 300 },
+        { "text": "│     결제 로직 보안 분석                   │", "style": "dim", "delay": 200 },
+        { "text": "├─────────────────────────────────────────┤", "style": "dim", "delay": 200 },
+        { "text": "│  ⚡ Performance Agent                    │", "style": "dim", "delay": 300 },
+        { "text": "│     트랜잭션 성능 검토                    │", "style": "dim", "delay": 200 },
+        { "text": "├─────────────────────────────────────────┤", "style": "dim", "delay": 200 },
+        { "text": "│  🏗 Architecture Agent                   │", "style": "dim", "delay": 300 },
+        { "text": "│     결제 모듈 설계 검토                   │", "style": "dim", "delay": 200 },
+        { "text": "└─────────────────────────────────────────┘", "style": "dim", "delay": 200 }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 400 },
+        { "text": "⏳ Team working in parallel...", "style": "dim", "delay": 800 },
+        { "text": "", "delay": 500 },
+        { "text": "✓ Security Agent: 2 critical, 1 warning", "style": "error", "delay": 500 },
+        { "text": "✓ Performance Agent: 1 suggestion", "style": "info", "delay": 400 },
+        { "text": "✓ Architecture Agent: approved with comments", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "팀 구성 규칙",
+      "body": "효과적인 Agent Team 운영을 위한 규칙:\n\n• 같은 파일을 여러 에이전트가 수정하지 않도록 분리\n• 각 에이전트에게 명확한 범위와 목표 제공\n• 에이전트당 5-6개 태스크로 제한\n• 일상적 작업은 단일 에이전트로 충분"
+    },
+    {
+      "type": "narration",
+      "text": "팀 리뷰 결과를 확인하고 통합된 리뷰 코멘트를 PR에 남겨보겠습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "팀 리뷰 결과를 정리해서 PR에 코멘트로 남겨줘", "correct": true },
+        { "label": "Security Agent 결과만 보여줘", "correct": false, "hint": "개별 결과도 볼 수 있지만, 통합 리뷰가 더 효과적입니다." },
+        { "label": "LGTM 코멘트 남겨줘", "correct": false, "hint": "보안 이슈가 있으니 먼저 상세한 리뷰 코멘트를 남기는 것이 좋습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "팀 리뷰 결과를 통합합니다...", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "● Running: gh pr review 52 --request-changes --body '...'", "style": "info", "delay": 500 },
+        { "text": "", "delay": 300 },
+        { "text": "Review Summary:", "style": "info", "delay": 300 },
+        { "text": "  🔒 PCI-DSS 준수를 위해 카드번호 마스킹 필요", "delay": 250 },
+        { "text": "  🔒 결제 실패 시 롤백 로직 누락", "delay": 250 },
+        { "text": "  ⚡ 대량 결제 시 배치 처리 권장", "delay": 250 },
+        { "text": "  🏗 결제 게이트웨이 추상화 잘됨 ✓", "delay": 250 },
+        { "text": "", "delay": 200 },
+        { "text": "✓ Review posted: Request Changes", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "Agent Teams이 가장 효과적인 상황은?",
+      "options": [
+        "간단한 버그 수정",
+        "대규모 PR 리뷰 또는 복잡한 리팩토링",
+        "단일 파일 수정"
+      ],
+      "answer": 1
+    }
+  ]
+}

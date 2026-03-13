@@ -1,0 +1,114 @@
+{
+  "id": "13-refactoring",
+  "chapter": 4,
+  "chapterTitle": "실전 개발 워크플로우",
+  "title": "리팩토링",
+  "description": "Claude와 함께 코드를 분석하고 단계적으로 개선합니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "코드가 복잡해지셨나요? Claude Code는 코드 패턴을 분석하고 리팩토링을 제안해줍니다. 기존 기능은 유지하면서 코드를 개선하는 과정을 함께 해봅시다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "src/components/Dashboard.jsx 코드가 너무 길어졌어. 리팩토링 방법 제안해줘", "correct": true },
+        { "label": "리팩토링해줘", "correct": false, "hint": "어떤 파일을, 어떤 이유로 리팩토링할지 알려주면 더 적절한 제안을 받을 수 있어요." },
+        { "label": "코드 정리해줘", "correct": false, "hint": "구체적인 파일과 문제점을 언급해주세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Dashboard.jsx를 분석해볼게요.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Read src/components/Dashboard.jsx", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 300 },
+        { "text": "분석 결과:", "style": "info", "delay": 400 },
+        { "text": "- 파일 길이: 450줄 (권장: 200줄 이하)", "delay": 300 },
+        { "text": "- 컴포넌트 내 비즈니스 로직 혼재", "delay": 300 },
+        { "text": "- 반복되는 UI 패턴 발견", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "리팩토링 전 분석의 중요성",
+      "body": "Claude는 먼저 코드를 읽고 문제점을 파악합니다. 단순히 '리팩토링해줘'보다 현재 겪고 있는 문제(파일이 너무 길다, 테스트하기 어렵다 등)를 알려주면 더 적합한 해결책을 제시합니다."
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "리팩토링 제안:", "style": "info", "delay": 300 },
+        { "text": "1. StatsCard, UserTable, ChartSection을 별도 컴포넌트로 분리", "delay": 400 },
+        { "text": "2. 데이터 fetching 로직을 useDashboardData 커스텀 훅으로 추출", "delay": 400 },
+        { "text": "3. 필터링 로직을 유틸 함수로 분리", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "어떤 것부터 시작할까요?", "delay": 400 }
+      ]
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "커스텀 훅 먼저 분리해줘. 단계별로 진행하고 각 단계마다 확인할게", "correct": true },
+        { "label": "전부 다 해줘", "correct": false, "hint": "한 번에 모든 걸 바꾸면 문제가 생겼을 때 원인을 찾기 어려워요. 단계별로 진행해봐요." },
+        { "label": "1번만 해줘", "correct": false, "hint": "좋은 선택이지만, 커스텀 훅 분리가 더 효과적인 첫 단계예요. 데이터 로직을 분리하면 UI 분리도 쉬워집니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "좋아요! 먼저 useDashboardData 훅을 만들겠습니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Write src/hooks/useDashboardData.js", "style": "dim", "delay": 500 },
+        { "text": "Edit src/components/Dashboard.jsx", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "변경 사항:", "style": "success", "delay": 300 },
+        { "text": "  - 새 파일: useDashboardData.js (데이터 fetching, 상태 관리)", "delay": 300 },
+        { "text": "  - Dashboard.jsx: 450줄 → 320줄 (-130줄)", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "테스트해보시고, 다음 단계로 넘어갈까요?", "delay": 400 }
+      ]
+    },
+    {
+      "type": "narration",
+      "text": "리팩토링은 단계별로 진행하는 것이 안전합니다. 각 단계 후에 테스트하고 확인하면 문제가 생겼을 때 원인을 쉽게 찾을 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-app",
+      "choices": [
+        { "label": "좋아! 이제 StatsCard 컴포넌트 분리해줘", "correct": true },
+        { "label": "원래대로 되돌려줘", "correct": false, "hint": "되돌리기도 가능하지만, 먼저 다음 단계를 진행해봐요. 변경이 잘 작동하는지 확인했으니까요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "StatsCard 컴포넌트를 분리합니다.", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Write src/components/StatsCard.jsx", "style": "dim", "delay": 500 },
+        { "text": "Edit src/components/Dashboard.jsx", "style": "dim", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "리팩토링 완료!", "style": "success", "delay": 300 },
+        { "text": "  Dashboard.jsx: 320줄 → 180줄", "delay": 300 },
+        { "text": "  새 컴포넌트: StatsCard.jsx (재사용 가능)", "delay": 300 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "리팩토링을 안전하게 진행하는 방법은?",
+      "options": [
+        "단계별로 진행하고 각 단계 후 테스트한다",
+        "한 번에 모든 변경을 적용한다",
+        "리팩토링 전에 테스트 코드를 삭제한다"
+      ],
+      "answer": 0
+    }
+  ]
+}

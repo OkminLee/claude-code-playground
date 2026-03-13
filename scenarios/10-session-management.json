@@ -1,0 +1,125 @@
+{
+  "id": "10-session-management",
+  "chapter": 3,
+  "chapterTitle": "커스터마이징",
+  "title": "세션 관리",
+  "description": "대화를 이어가고 컨텍스트를 관리합니다",
+  "difficulty": 2,
+  "audience": "dev",
+  "estimatedMinutes": 4,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Claude Code는 세션 단위로 대화를 관리합니다. 이전 작업을 이어가거나, 컨텍스트가 너무 커졌을 때 압축하는 방법을 알아봅시다."
+    },
+    {
+      "type": "guide",
+      "title": "세션이란?",
+      "body": "세션은 Claude와의 하나의 대화 흐름입니다. 세션 내에서 Claude는 이전 대화를 기억합니다.\n\n**새 세션**: claude 명령어 실행 시 시작\n**세션 종료**: exit 또는 Ctrl+C\n**세션 기록**: ~/.claude/sessions/에 저장"
+    },
+    {
+      "type": "narration",
+      "text": "어제 하던 작업을 이어가고 싶다면 /resume 명령어를 사용하세요."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "/resume", "correct": true },
+        { "label": "이전 대화 보여줘", "correct": false, "hint": "/resume 명령어로 이전 세션을 불러올 수 있습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "최근 세션 목록:", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "1. [오늘 10:30] 로그인 폼 구현", "delay": 300 },
+        { "text": "2. [어제 16:45] API 에러 핸들링 개선", "delay": 300 },
+        { "text": "3. [어제 14:20] 테스트 코드 작성", "delay": 300 },
+        { "text": "", "delay": 300 },
+        { "text": "이어갈 세션 번호를 선택하세요: _", "style": "info", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "/resume 활용",
+      "body": "**/resume**: 최근 세션 목록에서 선택\n\n**/resume 2**: 특정 세션 바로 이어가기\n\n**claude --resume**: 터미널에서 바로 마지막 세션 이어가기"
+    },
+    {
+      "type": "narration",
+      "text": "대화가 길어지면 컨텍스트가 커져서 응답이 느려질 수 있습니다. /compact로 압축할 수 있습니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "/compact", "correct": true },
+        { "label": "/clear", "correct": false, "hint": "/clear는 대화를 완전히 지웁니다. 컨텍스트를 유지하며 압축하려면 /compact를 사용하세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "대화 내용을 압축하는 중...", "style": "dim", "delay": 600 },
+        { "text": "", "delay": 400 },
+        { "text": "압축 완료:", "style": "success", "delay": 400 },
+        { "text": "- 이전 컨텍스트: 45,230 토큰", "delay": 300 },
+        { "text": "- 압축 후: 8,120 토큰", "delay": 300 },
+        { "text": "", "delay": 200 },
+        { "text": "핵심 내용을 요약했습니다:", "delay": 400 },
+        { "text": "- UserService 리팩토링 진행 중", "delay": 300 },
+        { "text": "- 검증 로직 추가 완료", "delay": 300 },
+        { "text": "- 남은 작업: 테스트 코드 작성", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "컨텍스트 관리 팁",
+      "body": "**/compact**: 대화 요약 후 압축 (진행 상황 유지)\n\n**/clear**: 대화 완전 초기화\n\n**새 세션 시작**: 완전히 다른 작업은 새 세션이 효율적\n\n**작업 단위 분리**: 하나의 기능 완성 후 새 세션 시작 권장"
+    },
+    {
+      "type": "narration",
+      "text": "복잡한 작업은 대화를 분기하는 것도 좋은 전략입니다."
+    },
+    {
+      "type": "prompt",
+      "cwd": "claude >",
+      "choices": [
+        { "label": "현재 진행 상황 요약해줘. 나중에 이어서 작업할 수 있게", "correct": true }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "## 작업 요약", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "**완료된 작업:**", "delay": 300 },
+        { "text": "1. UserService.create() 입력값 검증 추가", "delay": 200 },
+        { "text": "2. 이메일/비밀번호 검증 로직 구현", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "**진행 중:**", "delay": 300 },
+        { "text": "- 검증 실패 시 에러 응답 포맷 통일", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "**다음 단계:**", "delay": 300 },
+        { "text": "- 단위 테스트 작성 (UserService.test.ts)", "delay": 200 },
+        { "text": "- API 문서 업데이트", "delay": 200 },
+        { "text": "", "delay": 300 },
+        { "text": "이 내용으로 다음 세션에서 /resume하면 바로 이어갈 수 있습니다.", "delay": 500 }
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "question": "대화 내용을 유지하면서 컨텍스트 크기를 줄이는 명령어는?",
+      "options": [
+        "/compact",
+        "/clear",
+        "/reset"
+      ],
+      "answer": 0
+    }
+  ]
+}
