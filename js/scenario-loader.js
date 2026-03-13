@@ -1,10 +1,11 @@
 const cache = new Map();
 let manifest = null;
+const APP_VERSION = '2';
 
 export const loader = {
   async getManifest() {
     if (manifest) return manifest;
-    const res = await fetch('scenarios/manifest.json');
+    const res = await fetch(`scenarios/manifest.json?v=${APP_VERSION}`);
     if (!res.ok) throw new Error('Failed to load manifest');
     manifest = await res.json();
     return manifest;
@@ -15,7 +16,7 @@ export const loader = {
     const m = await this.getManifest();
     const entry = m.scenarios.find(s => s.id === id);
     if (!entry) return null;
-    const res = await fetch(`scenarios/${entry.file}`);
+    const res = await fetch(`scenarios/${entry.file}?v=${APP_VERSION}`);
     if (!res.ok) throw new Error(`Failed to load scenario: ${id}`);
     const data = await res.json();
     cache.set(id, data);
