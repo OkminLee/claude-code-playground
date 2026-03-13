@@ -52,9 +52,9 @@
       "type": "output",
       "lines": [
         { "text": "", "delay": 300 },
-        { "text": " ▐▛███▜▌   Claude Code v2.1.74", "style": "info", "delay": 200 },
-        { "text": "▝▜█████▛▘  Opus 4.6 with high effort · Claude Max", "style": "dim", "delay": 200 },
-        { "text": "  ▘▘ ▝▝    ~/.claude", "style": "dim", "delay": 200 },
+        { "text": " ▐▛███▜▌   Claude Code v2.1.74", "style": "info compact", "delay": 200 },
+        { "text": "▝▜█████▛▘  Opus 4.6 with high effort · Claude Max", "style": "dim compact", "delay": 200 },
+        { "text": "  ▘▘ ▝▝    ~/.claude", "style": "dim compact", "delay": 200 },
         { "text": "", "delay": 300 },
         { "text": "claude > _", "style": "info", "delay": 400 }
       ]

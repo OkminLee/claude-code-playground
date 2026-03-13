@@ -408,6 +408,8 @@ a:hover {
   min-height: 1.5em;
 }
 
+.terminal-line.compact { min-height: 0; line-height: 1.2; }
+
 .terminal-line.dim { color: var(--text-terminal-dim); }
 .terminal-line.success { color: var(--success); }
 .terminal-line.error { color: var(--error); }
