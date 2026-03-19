@@ -14,7 +14,7 @@ function escapeHtml(str) {
 
 async function getLoader() {
   if (!scenarioLoader) {
-    const mod = await import('./scenario-loader.js?v=2');
+    const mod = await import('./scenario-loader.js?v=5');
     scenarioLoader = mod.loader;
   }
   return scenarioLoader;
@@ -231,8 +231,8 @@ async function renderScenario(id) {
   }
 
   const [terminalMod, guideMod] = await Promise.all([
-    import('./terminal.js?v=2'),
-    import('./guide-panel.js?v=2')
+    import('./terminal.js?v=5'),
+    import('./guide-panel.js?v=5')
   ]);
 
   const termContainer = document.getElementById('terminal-container');
