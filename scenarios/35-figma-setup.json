@@ -1,0 +1,101 @@
+{
+  "id": "35-figma-setup",
+  "chapter": 11,
+  "chapterTitle": "디자이너 활용",
+  "title": "Figma MCP 설치 & 연결",
+  "description": "Figma MCP를 설정하여 디자인과 코드 사이의 양방향 루프를 구축합니다",
+  "difficulty": 1,
+  "audience": "designer",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "Figma MCP는 Claude Code와 Figma를 연결하는 다리입니다. 이 연결을 통해 디자인과 코드 사이를 자유롭게 오갈 수 있는 양방향 루프가 만들어집니다."
+    },
+    {
+      "type": "guide",
+      "title": "양방향 루프의 힘",
+      "body": "Figma MCP가 강력한 이유는 두 방향 모두 지원하기 때문입니다:\n\n• 코드 → 디자인 (확산): 컴포넌트 코드를 Figma에 반영\n• 디자인 → 코드 (수렴): Figma 디자인을 코드로 변환\n\n더 이상 디자인과 코드 사이에서 수동으로 번역할 필요가 없습니다."
+    },
+    {
+      "type": "narration",
+      "text": "Figma MCP 서버를 Claude Code에 연결해보겠습니다. 어떤 방법이 올바를까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~",
+      "choices": [
+        { "label": "Claude Code MCP 설정에서 Figma MCP 연결", "correct": true },
+        { "label": "Figma 웹에서 플러그인 설치", "correct": false, "hint": "Figma 웹 플러그인이 아닌 Claude Code 측에서 MCP 서버를 연결해야 합니다." },
+        { "label": "npm install figma", "correct": false, "hint": "npm 패키지 설치가 아닌 MCP 서버 연결이 필요합니다. Claude Code에서 설정하세요." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 300 },
+        { "text": " ▐▛███▜▌   Claude Code v2.1.74", "style": "info compact", "delay": 200 },
+        { "text": "▝▜█████▛▘  Opus 4.6 with high effort · Claude Max", "style": "dim compact", "delay": 200 },
+        { "text": "  ▘▘ ▝▝    ~/.claude", "style": "dim compact", "delay": 200 },
+        { "text": "", "delay": 300 },
+        { "text": "Adding MCP server: figma", "style": "info", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Connecting to Figma MCP...", "style": "dim", "delay": 600 },
+        { "text": "✓ MCP server 'figma' connected successfully", "style": "success", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "/plugin 명령어로 설치하기",
+      "body": "가장 간편한 방법은 /plugin 명령어를 사용하는 것입니다:\n\n1. Claude Code 실행\n2. /plugin figma 입력\n3. 자동으로 Figma MCP 서버 설치 및 설정\n\n플러그인 마켓플레이스에서 Figma를 찾아 원클릭으로 설치할 수도 있습니다."
+    },
+    {
+      "type": "narration",
+      "text": "플러그인 설치 후에는 Figma 계정 인증이 필요합니다. 어떤 방식으로 인증할까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~",
+      "choices": [
+        { "label": "/plugin으로 OAuth 인증", "correct": true },
+        { "label": "API 키 직접 입력", "correct": false, "hint": "API 키를 직접 관리하는 것보다 OAuth가 더 안전하고 간편합니다." },
+        { "label": "설정 파일 수정", "correct": false, "hint": "설정 파일을 직접 수정할 수도 있지만, OAuth 인증이 권장됩니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "", "delay": 200 },
+        { "text": "Opening browser for Figma authentication...", "style": "info", "delay": 500 },
+        { "text": "", "delay": 800 },
+        { "text": "✓ OAuth authentication successful", "style": "success", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "Figma MCP Status:", "style": "info", "delay": 300 },
+        { "text": "────────────────────────────────────────", "style": "dim", "delay": 200 },
+        { "text": "  Account: designer@example.com", "style": "dim", "delay": 250 },
+        { "text": "  Plan: Figma Pro", "style": "dim", "delay": 250 },
+        { "text": "  Connection: Active", "style": "success", "delay": 250 },
+        { "text": "", "delay": 200 },
+        { "text": "Available tools:", "style": "dim", "delay": 300 },
+        { "text": "  • get_file - Figma 파일 정보 조회", "style": "dim", "delay": 250 },
+        { "text": "  • get_components - 컴포넌트 목록 가져오기", "style": "dim", "delay": 250 },
+        { "text": "  • export_assets - 에셋 내보내기", "style": "dim", "delay": 250 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "Figma Pro 티어 권장",
+      "body": "전체 API 기능을 사용하려면 Figma Pro 이상이 권장됩니다:\n\n• Pro/Enterprise: 모든 API 기능 사용 가능\n• Free: 일부 기능 제한 (읽기 전용, API 호출 제한)\n\n무료 티어에서도 기본적인 디자인 조회는 가능하지만, 컴포넌트 수정이나 대량 내보내기는 제한될 수 있습니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "Figma MCP 연결의 첫 단계는?",
+      "options": [
+        "Figma 웹에서 플러그인 설치",
+        "Claude Code에서 MCP 서버 연결",
+        "API 키 발급"
+      ],
+      "answer": 1
+    }
+  ]
+}

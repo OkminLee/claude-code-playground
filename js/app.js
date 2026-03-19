@@ -62,6 +62,7 @@ let activeFilter = 'all';
 function getAudienceLabel(audience) {
   switch (audience) {
     case 'dev': return '개발자';
+    case 'designer': return '디자이너';
     case 'non-dev': return '비개발자';
     default: return '전체';
   }
@@ -78,7 +79,7 @@ async function renderHome() {
 
   const loader = await getLoader();
   const completedCount = progress.getCompletedCount();
-  const totalCount = 34;
+  const totalCount = 38;
   const pct = Math.round(completedCount / totalCount * 100);
 
   app.innerHTML = `

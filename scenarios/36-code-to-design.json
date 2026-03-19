@@ -1,0 +1,115 @@
+{
+  "id": "36-code-to-design",
+  "chapter": 11,
+  "chapterTitle": "디자이너 활용",
+  "title": "코드 → 디자인: 라이브 캡처",
+  "description": "라이브 UI를 캡처하여 편집 가능한 Figma 프레임으로 전송합니다",
+  "difficulty": 2,
+  "audience": "designer",
+  "estimatedMinutes": 5,
+  "steps": [
+    {
+      "type": "narration",
+      "text": "코드에서 디자인으로 역방향 워크플로우를 살펴봅니다. Figma MCP를 활용하면 로컬호스트, 스테이징, 프로덕션 환경의 실제 UI를 캡처하여 Figma로 전송할 수 있습니다. 단순 스크린샷이 아닌, 편집 가능한 디자인 에셋으로 변환됩니다."
+    },
+    {
+      "type": "guide",
+      "title": "라이브 캡처란?",
+      "body": "라이브 캡처는 단순 스크린샷과 다릅니다:\n\n• 실행 중인 UI를 캡처하면 **편집 가능한 Figma 프레임**으로 변환\n• **개별 레이어와 요소**가 그대로 보존됨 (텍스트, 버튼, 아이콘 등)\n• 텍스트는 텍스트로, 버튼은 버튼으로 편집 가능\n• 디자이너가 바로 수정하고 새 버전을 제안할 수 있음"
+    },
+    {
+      "type": "narration",
+      "text": "대시보드 UI를 Claude Code로 먼저 빌드한 후, 디자인 팀과 협업하기 위해 Figma로 전송하려고 합니다. 어떤 방법이 가장 효과적일까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "localhost:3000의 대시보드 UI를 캡처해서 Figma로 보내줘", "correct": true },
+        { "label": "스크린샷을 찍어서 Figma에 이미지로 임포트", "correct": false, "hint": "스크린샷은 편집할 수 없습니다. 라이브 캡처는 레이어가 보존된 편집 가능한 프레임을 생성합니다." },
+        { "label": "코드를 Figma 플러그인으로 변환", "correct": false, "hint": "별도 플러그인 없이 Claude Code가 직접 UI를 캡처하고 Figma로 전송할 수 있습니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "localhost:3000에서 대시보드 UI를 캡처 중...", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "✓ UI 캡처 완료", "style": "success", "delay": 500 },
+        { "text": "  - 캡처 해상도: 1920x1080", "style": "dim", "delay": 200 },
+        { "text": "  - 감지된 컴포넌트: 23개", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "Figma로 전송 중...", "delay": 400 },
+        { "text": "", "delay": 300 },
+        { "text": "✓ Figma 프레임 생성 완료", "style": "success", "delay": 500 },
+        { "text": "", "delay": 200 },
+        { "text": "생성된 레이어 구조:", "style": "info", "delay": 300 },
+        { "text": "  📁 Dashboard", "delay": 200 },
+        { "text": "    ├─ 📁 Header", "delay": 150 },
+        { "text": "    │   ├─ Logo", "delay": 100 },
+        { "text": "    │   ├─ Navigation", "delay": 100 },
+        { "text": "    │   └─ UserProfile", "delay": 100 },
+        { "text": "    ├─ 📁 Sidebar", "delay": 150 },
+        { "text": "    │   ├─ MenuItem (x6)", "delay": 100 },
+        { "text": "    │   └─ CollapseButton", "delay": 100 },
+        { "text": "    └─ 📁 MainContent", "delay": 150 },
+        { "text": "        ├─ StatsCard (x4)", "delay": 100 },
+        { "text": "        ├─ ChartSection", "delay": 100 },
+        { "text": "        └─ TableSection", "delay": 100 },
+        { "text": "", "delay": 200 },
+        { "text": "Figma 파일: Design System / Dashboard UI", "style": "info", "delay": 300 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "사용자 플로우 전체 전송",
+      "body": "개별 화면뿐 아니라 **전체 사용자 플로우**를 한 번에 전송할 수 있습니다:\n\n• 로그인 → 대시보드 → 설정 등 여러 화면을 순차 캡처\n• 각 화면이 별도 프레임으로 Figma에 배치\n• 화면 간 연결 관계도 시각적으로 표현 가능\n\n예시: \"회원가입부터 결제 완료까지 전체 플로우를 캡처해서 Figma로 보내줘\""
+    },
+    {
+      "type": "narration",
+      "text": "팀원들이 Figma에서 캡처된 디자인을 확인하고 피드백을 주려고 합니다. 어떻게 공유하는 것이 가장 좋을까요?"
+    },
+    {
+      "type": "prompt",
+      "cwd": "~/my-project",
+      "choices": [
+        { "label": "Figma Share → Dev Mode 링크 복사하여 공유", "correct": true },
+        { "label": "스크린샷을 찍어서 슬랙에 공유", "correct": false, "hint": "Figma 링크를 공유하면 팀원들이 직접 편집하고 댓글을 달 수 있습니다." },
+        { "label": "PDF로 내보내서 이메일 전송", "correct": false, "hint": "PDF는 정적입니다. Figma 링크를 공유하면 실시간 협업이 가능합니다." }
+      ]
+    },
+    {
+      "type": "output",
+      "lines": [
+        { "text": "Figma 캔버스에서 팀원들이 피드백을 추가하고 있습니다...", "delay": 400 },
+        { "text": "", "delay": 200 },
+        { "text": "💬 @디자이너A: \"사이드바 아이콘 크기 24px → 20px로 줄이면 좋겠어요\"", "style": "info", "delay": 500 },
+        { "text": "   └─ 📍 Sidebar > MenuItem 레이어 선택됨", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "💬 @PM: \"로그인 버튼 색상을 브랜드 컬러로 변경해주세요\"", "style": "info", "delay": 500 },
+        { "text": "   └─ 📍 Header > LoginButton 레이어 선택됨", "style": "dim", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "✏️ @디자이너A가 직접 수정 중...", "style": "success", "delay": 400 },
+        { "text": "  - StatsCard 그림자 효과 추가", "delay": 200 },
+        { "text": "  - 헤더 높이 64px → 56px 조정", "delay": 200 },
+        { "text": "", "delay": 200 },
+        { "text": "수정된 디자인은 다음 시나리오에서 다시 코드로 가져올 수 있습니다.", "style": "dim", "delay": 400 }
+      ]
+    },
+    {
+      "type": "guide",
+      "title": "양방향 워크플로우",
+      "body": "라이브 캡처는 **양방향 협업**의 시작점입니다:\n\n1. **코드 → 디자인**: 개발된 UI를 Figma로 캡처\n2. **디자이너 수정**: Figma에서 디자인 개선\n3. **디자인 → 코드**: 수정된 디자인을 다시 코드로 반영 (다음 시나리오)\n\n이 사이클을 통해 개발자와 디자이너가 끊김 없이 협업할 수 있습니다."
+    },
+    {
+      "type": "checkpoint",
+      "question": "라이브 캡처의 가장 큰 장점은?",
+      "options": [
+        "스크린샷보다 파일 크기가 작음",
+        "캡처된 UI가 편집 가능한 레이어로 보존됨",
+        "Figma 유료 플랜이 필요 없음"
+      ],
+      "answer": 1
+    }
+  ]
+}

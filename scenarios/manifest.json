@@ -33,6 +33,10 @@
     { "id": "31-checkpointing", "chapter": 5, "chapterTitle": "고급 기능", "title": "체크포인팅 & 되감기", "difficulty": 2, "audience": "all", "estimatedMinutes": 4, "file": "31-checkpointing.json" },
     { "id": "32-context-management", "chapter": 3, "chapterTitle": "커스터마이징", "title": "컨텍스트 관리", "difficulty": 2, "audience": "all", "estimatedMinutes": 5, "file": "32-context-management.json" },
     { "id": "33-failure-patterns", "chapter": 10, "chapterTitle": "모범 사례", "title": "흔한 실패 패턴", "difficulty": 2, "audience": "all", "estimatedMinutes": 5, "file": "33-failure-patterns.json" },
-    { "id": "34-github-actions", "chapter": 7, "chapterTitle": "Git & 코드 리뷰", "title": "GitHub Actions 연동", "difficulty": 3, "audience": "dev", "estimatedMinutes": 5, "file": "34-github-actions.json" }
+    { "id": "34-github-actions", "chapter": 7, "chapterTitle": "Git & 코드 리뷰", "title": "GitHub Actions 연동", "difficulty": 3, "audience": "dev", "estimatedMinutes": 5, "file": "34-github-actions.json" },
+    { "id": "35-figma-setup", "chapter": 11, "chapterTitle": "디자이너 활용", "title": "Figma MCP 설치 & 연결", "difficulty": 1, "audience": "designer", "estimatedMinutes": 5, "file": "35-figma-setup.json" },
+    { "id": "36-code-to-design", "chapter": 11, "chapterTitle": "디자이너 활용", "title": "코드 → 디자인: 라이브 캡처", "difficulty": 2, "audience": "designer", "estimatedMinutes": 5, "file": "36-code-to-design.json" },
+    { "id": "37-design-to-code", "chapter": 11, "chapterTitle": "디자이너 활용", "title": "디자인 → 코드: Figma에서 구현", "difficulty": 2, "audience": "designer", "estimatedMinutes": 5, "file": "37-design-to-code.json" },
+    { "id": "38-code-connect", "chapter": 11, "chapterTitle": "디자이너 활용", "title": "Code Connect & 모드 워크플로우", "difficulty": 2, "audience": "designer", "estimatedMinutes": 5, "file": "38-code-connect.json" }
   ]
 }
